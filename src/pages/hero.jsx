@@ -505,7 +505,8 @@ const Portfolio = () => {
                 {time.toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
-                })}
+                })}{" "}
+                IST
               </span>
             </div>
 
