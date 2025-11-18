@@ -30,6 +30,7 @@ import {
   Users,
   Layers,
 } from "lucide-react";
+import { FileText, Send } from "lucide-react";
 
 const Portfolio = () => {
   const [time, setTime] = useState(new Date());
@@ -418,8 +419,8 @@ const Portfolio = () => {
               <div
                 className={`h-16 w-16 ${theme.cardBg} rounded-2xl border ${theme.cardBorder} mb-6 flex items-center justify-center overflow-hidden relative group cursor-pointer`}
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-orange-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/10 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-linear-to-tr from-orange-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                <div className="absolute inset-0 bg-linear-to-br from-orange-400/10 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"></div>
                 <img
                   src="https://res.cloudinary.com/dw87upoot/image/upload/v1763497871/Gemini_Generated_Image_2_Background_Removed_tkozqp.png"
                   alt="Logo"
@@ -427,7 +428,7 @@ const Portfolio = () => {
                 />
               </div>
               <h1
-                className={`text-5xl font-bold tracking-tight bg-gradient-to-r ${theme.gradientText} bg-clip-text text-transparent`}
+                className={`text-5xl font-bold tracking-tight bg-linear-to-r ${theme.gradientText} bg-clip-text text-transparent`}
               >
                 Arman Thakur
               </h1>
@@ -448,6 +449,24 @@ const Portfolio = () => {
                 <span className="text-green-400">seamless UX</span>.
               </p>
             </div>
+          </div>
+
+          {/* Add buttons below the hero header */}
+          <div className="flex gap-4 mt-6">
+            <a
+              href="https://drive.google.com/file/d/13VVVgGtNzpVSg7sWoYHYd9wTXkwvwhrm/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-neutral-900 text-sm text-white hover:bg-neutral-800 transition-all duration-300 border border-neutral-700"
+            >
+              <FileText size={16} /> Resume / CV
+            </a>
+            <a
+              href="mailto:armanthakur200814@gmail.com"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-neutral-100 text-sm text-black hover:bg-neutral-200 transition-all duration-300 border border-neutral-300"
+            >
+              <Send size={16} /> Get in touch
+            </a>
           </div>
 
           {/* STATS ROW */}
@@ -654,10 +673,55 @@ const Portfolio = () => {
                         >
                           {project.name}
                         </h3>
-                        <ExternalLink
-                          size={14}
-                          className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
-                        />
+                        {/* External link icon as a button for each project */}
+                        {project.id === 1 && (
+                          <a
+                            href="https://www.titleforge.me/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink
+                              size={14}
+                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
+                            />
+                          </a>
+                        )}
+                        {project.id === 2 && (
+                          <a
+                            href="https://resolve-iq-cqza.vercel.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink
+                              size={14}
+                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
+                            />
+                          </a>
+                        )}
+                        {project.id === 3 && (
+                          <a
+                            href="https://chatx-lcy3i.sevalla.app/login"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink
+                              size={14}
+                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
+                            />
+                          </a>
+                        )}
+                        {project.id === 4 && (
+                          <a
+                            href="https://chatify-ai.vercel.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink
+                              size={14}
+                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
+                            />
+                          </a>
+                        )}
                       </div>
                       <p className={`text-xs ${theme.textSubtle} mb-2`}>
                         {project.tagline} • {project.date}
@@ -1071,7 +1135,7 @@ const Portfolio = () => {
             } mx-1`}
           ></div>
           <a
-            href="https://www.linkedin.com/in/arman-thakur14/"
+            href="https://www.linkedin.com/in/arman-thakur-303b47367/"
             target="_blank"
             rel="noreferrer"
             className={`p-3 rounded-full hover:bg-blue-900/30 ${theme.textMuted} hover:text-blue-400 hover:scale-110 transition-all duration-300 relative group`}
