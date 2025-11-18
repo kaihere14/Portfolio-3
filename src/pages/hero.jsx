@@ -177,9 +177,9 @@ const Portfolio = () => {
     {
       role: "Full-Stack Developer",
       company: "Personal Projects & Freelance",
-      period: "2024 - Present",
+      period: "2025 - Present",
       highlights: [
-        "Built and deployed 5+ production-ready applications with 99.9% uptime",
+        "Built and deployed 8+ production-ready applications with 99.9% uptime",
         "Implemented secure authentication systems and payment integrations",
         "Optimized database queries reducing API response time by 60%",
         "Architected scalable microservices handling 10k+ concurrent users",
