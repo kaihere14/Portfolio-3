@@ -233,8 +233,8 @@ const Portfolio = () => {
       date: "Oct 2025",
       link: "#",
       metrics: [
-        { label: "Active Users", value: "40+" },
-        { label: "Titles Generated", value: "800+" },
+        { label: "Active Users", value: "10+" },
+        { label: "Titles Generated", value: "150+" },
         { label: "Response Time", value: "~300ms" },
       ],
       tech: [
@@ -268,7 +268,7 @@ const Portfolio = () => {
       date: "Sep 2025",
       link: "#",
       metrics: [
-        { label: "Tickets Resolved", value: "150+" },
+        { label: "Tickets Resolved", value: "50+" },
         { label: "Response Time Improvement", value: "30%" },
         { label: "Test Rating", value: "4.6/5" },
       ],
@@ -295,9 +295,9 @@ const Portfolio = () => {
       date: "Aug 2025",
       link: "#",
       metrics: [
-        { label: "Messages Sent", value: "5k+" },
+        { label: "Messages Sent", value: "1k+" },
         { label: "Latency", value: "~150ms" },
-        { label: "Test Users", value: "25+" },
+        { label: "Test Users", value: "10+" },
       ],
       tech: ["React", "Socket.io", "Node.js", "MongoDB", "Cloudinary"],
       features: [
@@ -322,7 +322,7 @@ const Portfolio = () => {
       date: "Jul 2025",
       link: "#",
       metrics: [
-        { label: "Conversations", value: "600+" },
+        { label: "Conversations", value: "100+" },
         { label: "Avg Session", value: "4–5m" },
         { label: "Powered By", value: "Gemini API" },
       ],
@@ -410,7 +410,6 @@ const Portfolio = () => {
 
       <main className="max-w-3xl mx-auto px-6 pt-16 relative z-10 space-y-16">
         {/* ABOUT ME SECTION */}
-        
 
         {/* HEADER / HERO */}
         <header className="space-y-8">
