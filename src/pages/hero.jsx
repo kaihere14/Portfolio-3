@@ -38,17 +38,20 @@ const Portfolio = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredProject, setHoveredProject] = useState(null);
   const [hoveredTech, setHoveredTech] = useState(null);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      if (typeof window !== "undefined") {
+        const stored = window.localStorage.getItem("theme");
+        return stored ? stored === "dark" : true;
+      }
+    } catch (e) {
+      // ignore
+    }
+    return true;
+  });
 
-  // Add loading state and temp data for Spotify
-  const tempSpotify = {
-    isPlaying: false,
-    name: "Fight Back",
-    artists: "NEFFEX",
-    albumArt: "https://i.scdn.co/image/ab67616d0000b273607dfbd668cd06751f26094e",
-    url: "https://open.spotify.com/track/2zNTjCDUzoKhImvJfnk3vG",
-  };
-  const [spotify, setSpotify] = useState(tempSpotify);
+  // Add loading state for Spotify
+  const [spotify, setSpotify] = useState(null);
   const [spotifyLoaded, setSpotifyLoaded] = useState(false);
 
   useEffect(() => {
@@ -60,7 +63,7 @@ const Portfolio = () => {
         setSpotify(spotifyResponse.data);
         setSpotifyLoaded(true);
       } catch (error) {
-        setSpotifyLoaded(true); // Even on error, stop loading, keep temp data
+        setSpotifyLoaded(true); // Even on error, stop loading
       }
     };
     fetchSpotify();
@@ -89,6 +92,17 @@ const Portfolio = () => {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  // Persist theme preference to localStorage
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("theme", darkMode ? "dark" : "light");
+      }
+    } catch (e) {
+      // ignore write errors
+    }
+  }, [darkMode]);
 
   const darkModeClasses = {
     mainBg: "bg-black",
@@ -597,54 +611,80 @@ const Portfolio = () => {
           </div>
         </header>
 
-        {/* Spotify Card (always visible, fallback to temp data while loading or error) */}
+        {/* Spotify Card (skeleton loading if not loaded) */}
         <div className="mt-4 w-full flex justify-center">
           <div
-            className="flex items-center bg-neutral-900/90 border border-neutral-800 rounded-2xl p-3 gap-3 shadow-md w-full max-w-3xl relative"
+            className={`flex items-center ${theme.cardBg} border ${theme.cardBorder} rounded-2xl p-3 gap-3 shadow-md w-full max-w-3xl relative backdrop-blur-md min-h-[56px]`}
           >
-            <img
-              src={spotify.albumArt}
-              alt={spotify.name}
-              className="w-10 h-10 rounded-lg object-cover shadow"
-            />
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1 mb-0.5">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
-                  alt="Spotify"
-                  className={`w-3 h-3 ${spotify.isPlaying ? 'animate-pulse' : ''}`}
-                  style={{ filter: 'brightness(1.2)' }}
-                />
-                <span className="text-[10px] text-neutral-400 font-medium">
-                  {spotify.isPlaying ? "Now playing" : "Last played"}
-                </span>
-              </div>
-              <div className="text-xs font-bold text-white leading-tight truncate">
-                {spotify.name}
-              </div>
-              <div className="text-[10px] text-neutral-400 truncate">
-                by {spotify.artists}
-              </div>
-            </div>
-            <a
-              href={spotify.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 flex items-center justify-center w-7 h-7 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition-colors border border-neutral-700 group"
-            >
-              <svg
-                width="14"
-                height="14"
-                fill="none"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                viewBox="0 0 24 24"
-              >
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
-            </a>
+            {!spotifyLoaded ? (
+              // Skeleton loader
+              <>
+                <div className="w-10 h-10 rounded-lg bg-neutral-700/30 animate-pulse" />
+                <div className="flex-1 min-w-0 space-y-1">
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <div className="w-3 h-3 rounded bg-neutral-700/30 animate-pulse" />
+                    <div className="h-2 w-16 rounded bg-neutral-700/30 animate-pulse" />
+                  </div>
+                  <div className="h-3 w-24 rounded bg-neutral-700/30 animate-pulse" />
+                  <div className="h-2 w-16 rounded bg-neutral-700/30 animate-pulse" />
+                </div>
+                <div className="ml-2 w-7 h-7 rounded-lg bg-neutral-700/30 animate-pulse" />
+              </>
+            ) : (
+              spotify && (
+                <>
+                  <img
+                    src={spotify.albumArt}
+                    alt={spotify.name}
+                    className="w-10 h-10 rounded-lg object-cover shadow"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1 mb-0.5">
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
+                        alt="Spotify"
+                        className={`w-3 h-3 ${
+                          spotify.isPlaying ? "animate-pulse" : ""
+                        }`}
+                        style={{ filter: "brightness(1.2)" }}
+                      />
+                      <span
+                        className={`text-[10px] font-medium ${theme.textMuted}`}
+                      >
+                        {spotify.isPlaying ? "Now playing" : "Last played"}
+                      </span>
+                    </div>
+                    <div
+                      className={`text-xs font-bold ${theme.textWhite} leading-tight truncate`}
+                    >
+                      {spotify.name}
+                    </div>
+                    <div className={`text-[10px] ${theme.textMuted} truncate`}>
+                      by {spotify.artists}
+                    </div>
+                  </div>
+                  <a
+                    href={spotify.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`ml-2 flex items-center justify-center w-7 h-7 rounded-lg ${theme.cardBg} hover:${theme.cardHoverBg} transition-colors border ${theme.cardBorder} group backdrop-blur-sm`}
+                  >
+                    <svg
+                      width="14"
+                      height="14"
+                      fill="none"
+                      stroke={darkMode ? "white" : "black"}
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      viewBox="0 0 24 24"
+                    >
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                  </a>
+                </>
+              )
+            )}
           </div>
         </div>
 
