@@ -30,6 +30,7 @@ import {
   Users,
   Layers,
 } from "lucide-react";
+import axios from "axios";
 import { FileText, Send } from "lucide-react";
 
 const Portfolio = () => {
@@ -39,9 +40,36 @@ const Portfolio = () => {
   const [hoveredTech, setHoveredTech] = useState(null);
   const [darkMode, setDarkMode] = useState(true);
 
-  useEffect(() => {
+  // Add state for Spotify playback
+  const [spotify, setSpotify] = useState({
+    isPlaying: false,
+    name: "",
+    artists: "",
+    albumArt: "",
+    url: "",
+  });
+
+  useEffect(async () => {
+    const spotifyResponse = await axios.get(
+      "https://portfolio-3-backend.vercel.app/api/spotify/playback"
+    );
+    console.log(spotifyResponse.data);
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const spotifyResponse = await axios.get(
+          "https://portfolio-3-backend.vercel.app/api/spotify/playback"
+        );
+        setSpotify(spotifyResponse.data);
+      } catch (error) {
+        console.error("Error fetching Spotify playback data:", error);
+      }
+    }, 5000); // Fetch Spotify data every 5 seconds
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -558,6 +586,59 @@ const Portfolio = () => {
             </div>
           </div>
         </header>
+
+        {/* Spotify Card */}
+        {spotify && spotify.name && (
+          <div className="mt-4">
+            <div
+              className="flex items-center bg-neutral-900/90 border border-neutral-800 rounded-2xl p-4 gap-4 shadow-md max-w-2xl mx-auto relative"
+              style={{ minWidth: 340 }}
+            >
+              <img
+                src={spotify.albumArt}
+                alt={spotify.name}
+                className="w-16 h-16 rounded-xl object-cover shadow"
+              />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
+                    alt="Spotify"
+                    className="w-5 h-5"
+                  />
+                  <span className="text-xs text-neutral-400 font-medium">
+                    {spotify.isPlaying ? "Now playing" : "Last played"}
+                  </span>
+                </div>
+                <div className="text-lg font-bold text-white leading-tight truncate">
+                  {spotify.name}
+                </div>
+                <div className="text-sm text-neutral-400 truncate">
+                  by {spotify.artists}
+                </div>
+              </div>
+              <a
+                href={spotify.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 flex items-center justify-center w-10 h-10 rounded-xl bg-neutral-800 hover:bg-neutral-700 transition-colors border border-neutral-700 group"
+              >
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </a>
+            </div>
+          </div>
+        )}
 
         <hr className={theme.hr} />
 
