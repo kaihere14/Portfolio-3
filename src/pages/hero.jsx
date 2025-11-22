@@ -284,7 +284,7 @@ const Portfolio = () => {
       gradient: "from-purple-500/10 to-purple-600/10",
       status: "Live",
       date: "Oct 2025",
-      link: "#",
+      link: "https://www.titleforge.me/",
       metrics: [
         { label: "Active Users", value: "10+" },
         { label: "Titles Generated", value: "150+" },
@@ -319,7 +319,7 @@ const Portfolio = () => {
       gradient: "from-blue-500/10 to-blue-600/10",
       status: "Live",
       date: "Sep 2025",
-      link: "#",
+      link: "https://resolve-iq-cqza.vercel.app/",
       metrics: [
         { label: "Tickets Resolved", value: "50+" },
         { label: "Response Time Improvement", value: "30%" },
@@ -346,7 +346,7 @@ const Portfolio = () => {
       gradient: "from-emerald-500/10 to-emerald-600/10",
       status: "Beta",
       date: "Aug 2025",
-      link: "#",
+      link: "https://chatx-lcy3i.sevalla.app/login",
       metrics: [
         { label: "Messages Sent", value: "1k+" },
         { label: "Latency", value: "~150ms" },
@@ -373,7 +373,7 @@ const Portfolio = () => {
       gradient: "from-yellow-500/10 to-orange-500/10",
       status: "Active",
       date: "Jul 2025",
-      link: "#",
+      link: "https://chatify-ai.vercel.app/",
       metrics: [
         { label: "Conversations", value: "100+" },
         { label: "Avg Session", value: "4–5m" },
@@ -614,7 +614,7 @@ const Portfolio = () => {
         {/* Spotify Card (skeleton loading if not loaded) */}
         <div className="mt-4 w-full flex justify-center">
           <div
-            className={`flex items-center ${theme.cardBg} border ${theme.cardBorder} rounded-2xl p-3 gap-3 shadow-md w-full max-w-3xl relative backdrop-blur-md min-h-[56px]`}
+            className={`flex items-center ${theme.cardBg} border ${theme.cardBorder} rounded-2xl p-3 gap-3 shadow-md w-full max-w-3xl relative backdrop-blur-md min-h-14`}
           >
             {!spotifyLoaded ? (
               // Skeleton loader
@@ -737,7 +737,7 @@ const Portfolio = () => {
                   >
                     <ChevronRight
                       size={16}
-                      className="text-orange-400 mt-0.5 flex-shrink-0"
+                      className="text-orange-400 mt-0.5 shrink-0"
                     />
                     <span>{highlight}</span>
                   </li>
@@ -788,7 +788,7 @@ const Portfolio = () => {
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-start gap-4 flex-1">
                     <div
-                      className={`h-12 w-12 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center border border-${project.color}-500/20 group-hover:scale-110 transition-transform duration-300`}
+                      className={`h-12 w-12 rounded-xl bg-linear-to-br ${project.gradient} flex items-center justify-center border border-${project.color}-500/20 group-hover:scale-110 transition-transform duration-300`}
                     >
                       <project.icon
                         size={24}
@@ -797,57 +797,21 @@ const Portfolio = () => {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3
+                        <span
                           className={`text-lg font-bold ${theme.textWhite} group-hover:text-${project.color}-400 transition-colors`}
                         >
                           {project.name}
-                        </h3>
-                        {/* External link icon as a button for each project */}
-                        {project.id === 1 && (
+                        </span>
+                        {/* External link icon as a button for each project, always visible on mobile */}
+                        {project.link && project.link !== "#" && (
                           <a
-                            href="https://www.titleforge.me/"
+                            href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <ExternalLink
                               size={14}
-                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
-                            />
-                          </a>
-                        )}
-                        {project.id === 2 && (
-                          <a
-                            href="https://resolve-iq-cqza.vercel.app/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink
-                              size={14}
-                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
-                            />
-                          </a>
-                        )}
-                        {project.id === 3 && (
-                          <a
-                            href="https://chatx-lcy3i.sevalla.app/login"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink
-                              size={14}
-                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
-                            />
-                          </a>
-                        )}
-                        {project.id === 4 && (
-                          <a
-                            href="https://chatify-ai.vercel.app/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <ExternalLink
-                              size={14}
-                              className={`${theme.textSubtle} opacity-0 group-hover:opacity-100 transition-opacity`}
+                              className={`${theme.textSubtle} opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity`}
                             />
                           </a>
                         )}
@@ -911,7 +875,7 @@ const Portfolio = () => {
                           className={`text-sm ${theme.textSubtle} flex items-start gap-2`}
                         >
                           <div
-                            className={`h-1.5 w-1.5 rounded-full bg-${project.color}-500 mt-1.5 flex-shrink-0`}
+                            className={`h-1.5 w-1.5 rounded-full bg-${project.color}-500 mt-1.5 shrink-0`}
                           ></div>
                           <span>{feature}</span>
                         </li>
@@ -1174,7 +1138,7 @@ const Portfolio = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 pb-8">
             <div className="text-center md:text-left">
               <p
-                className={`${theme.textWhite} font-bold text-2xl mb-2 bg-gradient-to-r ${theme.gradientText} bg-clip-text text-transparent`}
+                className={`${theme.textWhite} font-bold text-2xl mb-2 bg-linear-to-r ${theme.gradientText} bg-clip-text text-transparent`}
               >
                 Let's build something amazing.
               </p>
