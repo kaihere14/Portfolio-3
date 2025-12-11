@@ -29,6 +29,7 @@ import {
   TrendingUp,
   Users,
   Layers,
+  Folder
 } from "lucide-react";
 import axios from "axios";
 import { FileText, Send } from "lucide-react";
@@ -273,8 +274,42 @@ const Portfolio = () => {
   // UPDATED REAL PROJECT METRICS
   // =====================
   const detailedProjects = [
+     {
+    id: 1,
+    name: "NovaDrive AI",
+    tagline: "Personal Cloud Storage with AI Auto-Organization",
+    description:
+      "Lightweight, production-ready personal cloud storage system with AI-driven auto-tagging and summaries. Supports chunked uploads, background workers for file merging, secure storage architecture, and seamless file management through a modern dashboard.",
+    icon: Folder,
+    color: "blue",
+    gradient: "from-blue-500/10 to-blue-600/10",
+    status: "In Development",
+    date: "Dec 2025",
+    link: "https://www.novadrive.space/",
+    metrics: [
+      { label: "Files Processed", value: "100+" },
+      { label: "AI Tags Generated", value: "300+" },
+      { label: "Avg Upload Speed", value: "Stable" },
+    ],
+    tech: [
+      "React",
+      "Node.js",
+      "BullMQ",
+      "Redis",
+      "MongoDB",
+      "OpenAI Vision",
+      "JWT",
+    ],
+    features: [
+      "Chunked uploads with worker-based background merging",
+      "AI-generated tags and file summaries",
+      "Secure file storage with metadata indexing",
+      "Real-time upload progress tracking",
+      "Modern dashboard with folder-based organisation",
+    ],
+  },
     {
-      id: 1,
+      id: 2,
       name: "TitleForge AI",
       tagline: "AI-Powered YouTube Title Optimizer",
       description:
@@ -307,9 +342,9 @@ const Portfolio = () => {
         "Real-time analytics dashboard",
       ],
     },
-
+   
     {
-      id: 2,
+      id: 3,
       name: "ResolveIQ",
       tagline: "Intelligent CRM & Support System",
       description:
@@ -336,7 +371,7 @@ const Portfolio = () => {
     },
 
     {
-      id: 3,
+      id: 4,
       name: "ChatX",
       tagline: "Real-Time Messaging Platform",
       description:
@@ -363,7 +398,7 @@ const Portfolio = () => {
     },
 
     {
-      id: 4,
+      id: 5,
       name: "Chatify AI",
       tagline: "Conversational AI Assistant",
       description:
