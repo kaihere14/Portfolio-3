@@ -283,9 +283,9 @@ const Portfolio = () => {
   date: "Dec 2025",
   link: "https://www.novadrive.space/",
   metrics: [
-    { label: "Files Uploaded", value: "30+" },
-    { label: "AI Tags & Summaries", value: "100+" },
-    { label: "Background Jobs", value: "Worker-based" },
+  { label: "Files Stored", value: "100+" },
+  { label: "AI Operations", value: "300+" },
+  { label: "Background Jobs", value: "Queued" },
   ],
   tech: [
     "React",
