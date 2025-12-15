@@ -157,7 +157,7 @@ const Portfolio = () => {
 
   const theme = darkMode ? darkModeClasses : lightModeClasses;
 
-  // UPDATED TECH STACK: All tools included, icons only
+  
   const techStack = [
     {
       name: "React",
@@ -240,9 +240,7 @@ const Portfolio = () => {
     },
   ];
 
-  // =====================
-  // UPDATED REAL STATS
-  // =====================
+  
   const stats = [
     {
       label: "Projects Shipped",
@@ -270,9 +268,7 @@ const Portfolio = () => {
     },
   ];
 
-  // =====================
-  // UPDATED REAL PROJECT METRICS
-  // =====================
+  
   const detailedProjects = [
      {
     id: 1,
@@ -283,7 +279,7 @@ const Portfolio = () => {
     icon: Folder,
     color: "blue",
     gradient: "from-blue-500/10 to-blue-600/10",
-    status: "In Development",
+    status: "Live",
     date: "Dec 2025",
     link: "https://www.novadrive.space/",
     metrics: [
