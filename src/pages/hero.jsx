@@ -271,39 +271,45 @@ const Portfolio = () => {
   
   const detailedProjects = [
      {
-    id: 1,
-    name: "NovaDrive AI",
-    tagline: "Personal Cloud Storage with AI Auto-Organization",
-    description:
-      "Lightweight, production-ready personal cloud storage system with AI-driven auto-tagging and summaries. Supports chunked uploads, background workers for file merging, secure storage architecture, and seamless file management through a modern dashboard.",
-    icon: Folder,
-    color: "blue",
-    gradient: "from-blue-500/10 to-blue-600/10",
-    status: "Live",
-    date: "Dec 2025",
-    link: "https://www.novadrive.space/",
-    metrics: [
-      { label: "Files Processed", value: "100+" },
-      { label: "AI Tags Generated", value: "300+" },
-      { label: "Avg Upload Speed", value: "Stable" },
-    ],
-    tech: [
-      "React",
-      "Node.js",
-      "BullMQ",
-      "Redis",
-      "MongoDB",
-      "OpenAI Vision",
-      "JWT",
-    ],
-    features: [
-      "Chunked uploads with worker-based background merging",
-      "AI-generated tags and file summaries",
-      "Secure file storage with metadata indexing",
-      "Real-time upload progress tracking",
-      "Modern dashboard with folder-based organisation",
-    ],
-  },
+  id: 1,
+  name: "NovaDrive AI",
+  tagline: "AI-Powered Personal Cloud Platform",
+  description:
+    "Production-grade personal cloud storage platform with AI-assisted organization, secure file management, and scalable backend architecture. Built with chunked uploads, background workers, Redis-backed queues, and AI-powered file understanding to deliver fast, reliable, and intelligent storage.",
+  icon: Folder,
+  color: "blue",
+  gradient: "from-blue-500/10 to-blue-600/10",
+  status: "Live",
+  date: "Dec 2025",
+  link: "https://www.novadrive.space/",
+  metrics: [
+    { label: "Files Uploaded", value: "30+" },
+    { label: "AI Tags & Summaries", value: "100+" },
+    { label: "Background Jobs", value: "Worker-based" },
+  ],
+  tech: [
+    "React",
+    "Node.js",
+    "TypeScript",
+    "BullMQ",
+    "Redis",
+    "MongoDB",
+    "AI Vision & NLP",
+    "JWT (Access + Refresh)",
+    "Cloud Object Storage",
+    "oAuth2"
+  ],
+  features: [
+    "Chunked file uploads with fault tolerance and resume support",
+    "Background workers for file merging and AI processing",
+    "AI-powered auto-tagging, summaries, and smart search",
+    "Secure storage architecture with metadata indexing",
+    "Real-time upload progress and status tracking",
+    "Modern dashboard with folder hierarchy and previews",
+    "Centralized logging and observability-ready design",
+  ],
+}
+,
     {
       id: 2,
       name: "TitleForge AI",
@@ -537,7 +543,7 @@ const Portfolio = () => {
           {/* Add buttons below the hero header */}
           <div className="flex gap-4 mt-6">
             <a
-              href="https://drive.google.com/file/d/13VVVgGtNzpVSg7sWoYHYd9wTXkwvwhrm/view?usp=drive_link"
+              href="https://drive.google.com/file/d/1MiYa338p-Kd1vRRG6Aqa3G5FNEpI79Hb/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-neutral-900 text-sm text-white hover:bg-neutral-800 transition-all duration-300 border border-neutral-700"
