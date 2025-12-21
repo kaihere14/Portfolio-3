@@ -24,7 +24,7 @@ const Header = ({ theme, darkMode, time }) => {
             Arman Thakur
           </h1>
           <p
-            className={`text-lg ${theme.textMuted} leading-relaxed text-gray-400 py-2 px-1 space-y-2`}
+            className={`text-lg ${theme.textMuted} leading-12 sm:leading-relaxed text-gray-400 py-2 px-1 space-y-6 `}
           >
             I build modern, interactive web applications using{" "}
             <span
@@ -32,9 +32,9 @@ const Header = ({ theme, darkMode, time }) => {
                 darkMode
                   ? "bg-white/15 text-white border-white/45"
                   : "bg-black/10 text-black border-black/40"
-              } text-[12px] font-bold border-2 border-dashed rounded-md px-2 py-1 inline-flex items-center gap-2 mx-1 my-1`}
+              } text-sm font-bold border-2 border-dashed rounded-md px-2 py-1 inline-flex items-center gap-2 mx-1 my-1`}
             >
-              <svg viewBox="0 0 128 128" className="w-4 h-4">
+              <svg viewBox="0 0 128 128" className="size-4 shrink-0 inline-flex">
                 <path fill="#fff" d="M22.67 47h99.67v73.67H22.67z"></path>
                 <path
                   fill="#007acc"
