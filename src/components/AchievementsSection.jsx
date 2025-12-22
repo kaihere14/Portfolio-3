@@ -58,7 +58,7 @@ const AchievementsSection = ({ theme, darkMode }) => {
           </div>
 
           <p className={`mt-6 text-sm ${theme.textSubtle} max-w-2xl leading-relaxed border-l border-neutral-800 pl-4`}>
-            Secured a position in the <span className="text-white font-medium">Top 18</span> globally. 
+            Secured a position in the <span className={`${theme.textWhite} font-medium`}>Top 18</span> globally. 
             Engineered and pitched a technical MVP within a strict 24-hour window. One of only 21 teams 
             selected for the final evaluation phase.
           </p>
