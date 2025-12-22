@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { useTime } from "../hooks/useTime";
 import { useMousePosition } from "../hooks/useMousePosition";
 import { useSpotify } from "../hooks/useSpotify";
+import { checkStatus } from "../hooks/useDiscord";
 import ThemeToggle from "../components/ThemeToggle";
 import CursorEffect from "../components/CursorEffect";
 import BackgroundPattern from "../components/BackgroundPattern";
@@ -16,6 +17,8 @@ import AchievementsSection from "../components/AchievementsSection";
 import Footer from "../components/Footer";
 import FloatingDock from "../components/FloatingDock";
 
+
+
 const Portfolio = () => {
   const { darkMode, setDarkMode, theme } = useTheme();
   const time = useTime();
@@ -23,6 +26,10 @@ const Portfolio = () => {
   const { spotify, spotifyLoaded } = useSpotify();
   const [hoveredProject, setHoveredProject] = useState(null);
   const [hoveredTech, setHoveredTech] = useState(null);
+  const { discord } = checkStatus();
+
+
+
 
   return (
     <div
@@ -33,12 +40,13 @@ const Portfolio = () => {
       <BackgroundPattern theme={theme} />
 
       <main className="max-w-3xl mx-auto px-6 pt-16 relative z-10 space-y-16">
-        <Header theme={theme} darkMode={darkMode} time={time} />
+        <Header theme={theme} darkMode={darkMode} time={time} status={discord} />
         <SpotifyCard
           spotify={spotify}
           spotifyLoaded={spotifyLoaded}
           theme={theme}
           darkMode={darkMode}
+          
         />
 
         <hr className={theme.hr} />

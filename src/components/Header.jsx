@@ -1,8 +1,9 @@
-import React from "react";
-import { FileText, Send, MapPin, Clock, Code } from "lucide-react";
+import React, { useEffect } from "react";
+import { FileText, Send, MapPin, Clock, Code, CaseUpper } from "lucide-react";
+import { checkStatus } from "../hooks/useDiscord";
 import { stats } from "../data/portfolioData";
 
-const Header = ({ theme, darkMode, time }) => {
+const Header = ({ theme, darkMode, time, status }) => {
   return (
     <header className="space-y-8">
       <div className="flex items-start justify-between">
@@ -18,11 +19,71 @@ const Header = ({ theme, darkMode, time }) => {
               className="w-16 h-16 object-contain relative z-10 group-hover:scale-110 transition-transform duration-300"
             />
           </div>
-          <h1
-            className={`text-5xl font-bold tracking-tight bg-linear-to-r ${theme.gradientText} bg-clip-text text-transparent`}
-          >
-            Arman Thakur
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1
+              className={`text-5xl font-bold tracking-tight bg-linear-to-r ${theme.gradientText} bg-clip-text text-transparen`}
+            >
+              Arman Thakur
+            </h1>
+            {status ? (
+              <div
+                className={`group  relative inline-flex items-center gap-2 rounded-full border pl-2 h-6 ${theme.cardBorder} ${theme.bentoBg} backdrop-blur-sm transition-all duration-500 ease-in-out hover:pr-4 hover:${theme.bentoHoverBg}`}
+                role="status"
+              >
+                {/* The Indicator Dot */}
+                <div className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                  {status.data?.discord_status !== "offline" && (
+                    <span
+                      className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-40 ${
+                        status.data?.discord_status === "online"
+                          ? "bg-green-500"
+                          : status.data?.discord_status === "dnd"
+                          ? "bg-red-500"
+                          : "bg-yellow-500"
+                      }`}
+                    ></span>
+                  )}
+                  <span
+                    className={`relative inline-flex rounded-full h-2.5 w-2.5 border border-black/20 ${
+                      status.data?.discord_status === "online"
+                        ? "bg-green-500"
+                        : status.data?.discord_status === "dnd"
+                        ? "bg-red-500"
+                        : status.data?.discord_status === "idle"
+                        ? "bg-yellow-500"
+                        : "bg-zinc-500"
+                    }`}
+                  ></span>
+                </div>
+
+                {/* The Expanding Text Container */}
+                <div className="flex max-w-0 overflow-hidden transition-all rounded-full duration-500 ease-in-out group-hover:max-w-[120px] ">
+                  <div className="flex items-center gap-1.5 whitespace-nowrap opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="text-[10px] font-bold uppercase tracking-tighter text-zinc-500">
+                      Discord
+                    </span>
+                    <span
+                      className={`text-xs font-semibold capitalize ${
+                        status.data?.discord_status === "offline"
+                          ? "text-zinc-500"
+                          : status.data?.discord_status === "online"? "text-green-500": status.data?.discord_status === "dnd"? "text-red-500": "text-yellow-500"
+                      }`}
+                    >
+                      {status.data?.discord_status ?? "Offline"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Screen Reader Only */}
+                <span className="sr-only">{`Discord: ${
+                  status.data?.discord_status ?? "offline"
+                }`}</span>
+              </div>
+            ) : (
+              <div className="h-8 w-8 rounded-full bg-zinc-800/50 animate-pulse border border-white/5" />
+            )}
+          </div>
+
           <p
             className={`text-lg ${theme.textMuted} leading-12 sm:leading-relaxed text-gray-400 py-2 px-1 space-y-6 `}
           >
@@ -34,7 +95,10 @@ const Header = ({ theme, darkMode, time }) => {
                   : "bg-black/10 text-black border-black/40"
               } text-sm font-bold border-2 border-dashed rounded-md px-2 py-1 inline-flex items-center gap-2 mx-1 my-1`}
             >
-              <svg viewBox="0 0 128 128" className="size-4 shrink-0 inline-flex">
+              <svg
+                viewBox="0 0 128 128"
+                className="size-4 shrink-0 inline-flex"
+              >
                 <path fill="#fff" d="M22.67 47h99.67v73.67H22.67z"></path>
                 <path
                   fill="#007acc"
