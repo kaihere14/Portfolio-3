@@ -16,10 +16,10 @@ import TechStackSection from "../components/TechStackSection";
 import AchievementsSection from "../components/AchievementsSection";
 import Footer from "../components/Footer";
 import FloatingDock from "../components/FloatingDock";
-
-
+import useGithubCommits from "../hooks/useGithubCommits";
 
 const Portfolio = () => {
+  const { gitValue } = useGithubCommits();
   const { darkMode, setDarkMode, theme } = useTheme();
   const time = useTime();
   const mousePosition = useMousePosition();
@@ -28,25 +28,31 @@ const Portfolio = () => {
   const [hoveredTech, setHoveredTech] = useState(null);
   const { discord } = checkStatus();
 
-
-
-
   return (
     <div
       className={`min-h-screen ${theme.mainBg} ${theme.text} font-sans ${theme.selection} pb-32 overflow-x-hidden transition-colors duration-300`}
     >
-      <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} theme={theme} />
+      <ThemeToggle
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        theme={theme}
+      />
       <CursorEffect mousePosition={mousePosition} darkMode={darkMode} />
       <BackgroundPattern theme={theme} />
 
       <main className="max-w-3xl mx-auto px-6 pt-16 relative z-10 space-y-16">
-        <Header theme={theme} darkMode={darkMode} time={time} status={discord} />
+        <Header
+          theme={theme}
+          darkMode={darkMode}
+          time={time}
+          status={discord}
+          gitValue={gitValue}
+        />
         <SpotifyCard
           spotify={spotify}
           spotifyLoaded={spotifyLoaded}
           theme={theme}
           darkMode={darkMode}
-          
         />
 
         <hr className={theme.hr} />
@@ -72,8 +78,6 @@ const Portfolio = () => {
         <hr className={theme.hr} />
 
         <AboutSection theme={theme} darkMode={darkMode} />
-
-        
 
         <hr className={theme.hr} />
 

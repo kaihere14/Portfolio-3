@@ -9,7 +9,6 @@ useEffect(() => {
     const fetchDiscordStatus = async () => {
         try {
             const response = await axios.get(DISCORD_API_URL);
-            console.log(response.data);
             setStatus(response.data);
         } catch (error) {
             console.error("Error fetching Discord status:", error);

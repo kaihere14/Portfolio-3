@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
 export const useSpotify = () => {
   const [spotify, setSpotify] = useState(null);
   const [spotifyLoaded, setSpotifyLoaded] = useState(false);
@@ -17,7 +18,9 @@ export const useSpotify = () => {
         setSpotifyLoaded(true); // Even on error, stop loading
       }
     };
+    
     fetchSpotify();
+    
     const interval = setInterval(fetchSpotify, 5000);
     return () => clearInterval(interval);
   }, []);

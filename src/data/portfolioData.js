@@ -10,6 +10,10 @@ import {
   Folder,
 } from "lucide-react";
 
+
+
+
+
 export const techStack = [
   {
     name: "React",
@@ -101,7 +105,7 @@ export const stats = [
   },
   {
     label: "GitHub Commits",
-    value: "800+",
+    value:  "900+",
     icon: GitBranch,
     color: "text-green-400",
   },
@@ -272,4 +276,3 @@ export const detailedProjects = [
     ],
   },
 ];
-
