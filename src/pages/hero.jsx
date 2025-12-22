@@ -17,6 +17,7 @@ import AchievementsSection from "../components/AchievementsSection";
 import Footer from "../components/Footer";
 import FloatingDock from "../components/FloatingDock";
 import useGithubCommits from "../hooks/useGithubCommits";
+import GitContributionMap from "../components/GitContributionMap";
 
 const Portfolio = () => {
   const { gitValue } = useGithubCommits();
@@ -78,6 +79,10 @@ const Portfolio = () => {
         <hr className={theme.hr} />
 
         <AboutSection theme={theme} darkMode={darkMode} />
+
+        <hr className={theme.hr} />
+
+        <GitContributionMap theme={theme} darkMode={darkMode} />
 
         <hr className={theme.hr} />
 

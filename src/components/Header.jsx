@@ -4,7 +4,7 @@ import { FileText, Send, MapPin, Clock, Code, CaseUpper } from "lucide-react";
 import { stats } from "../data/portfolioData";
 
 const Header = ({ theme, darkMode, time, status, gitValue }) => {
-  console.log(status);
+  
   return (
     <header className="space-y-8">
       <div className="flex items-start justify-between">
