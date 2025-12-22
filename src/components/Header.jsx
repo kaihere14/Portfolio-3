@@ -91,13 +91,11 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
 
           {/* Discord Activity */}
           {(() => {
-            // Logic: Find VS Code specifically, or fallback to the first activity, or null
-            const activity =
-              status?.data?.activities?.find(
-                (a) => a.name === "Visual Studio Code"
-              ) || status?.data?.activities?.[0];
-            const isOffline =
-              !activity || status?.data?.discord_status === "offline";
+            // Logic: Find VS Code specifically - if not found, show as offline
+            const activity = status?.data?.activities?.find(
+              (a) => a.name === "Visual Studio Code"
+            );
+            const isOffline = !activity;
 
             return (
               <div
