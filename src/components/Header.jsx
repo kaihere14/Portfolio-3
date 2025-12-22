@@ -117,7 +117,7 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 ">
                   <span className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-50 ">
-                    {isOffline ? "System_Status:" : "Currently_Working:"}
+                    {isOffline ? "Working_Status:" : "Currently_Working:"}
                   </span>
 
                   <div className="flex items-center gap-2">
