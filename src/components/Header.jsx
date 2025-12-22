@@ -4,6 +4,7 @@ import { FileText, Send, MapPin, Clock, Code, CaseUpper } from "lucide-react";
 import { stats } from "../data/portfolioData";
 
 const Header = ({ theme, darkMode, time, status, gitValue }) => {
+  console.log(status);
   return (
     <header className="space-y-8">
       <div className="flex items-start justify-between">
@@ -87,6 +88,76 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
               <div className="h-8 w-8 rounded-full bg-zinc-800/50 animate-pulse border border-white/5" />
             )}
           </div>
+
+          {/* Discord Activity */}
+          {(() => {
+            // Logic: Find VS Code specifically, or fallback to the first activity, or null
+            const activity =
+              status?.data?.activities?.find(
+                (a) => a.name === "Visual Studio Code"
+              ) || status?.data?.activities?.[0];
+            const isOffline =
+              !activity || status?.data?.discord_status === "offline";
+
+            return (
+              <div
+                className={`relative flex items-center gap-3 text-sm ${theme.textSubtle} group/activity cursor-default py-1`}
+              >
+                {/* Dynamic Status Indicator */}
+                <div className="relative flex h-2 w-2">
+                  <span
+                    className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                      isOffline ? "bg-zinc-600" : "bg-blue-500 animate-ping"
+                    }`}
+                  ></span>
+                  <span
+                    className={`relative inline-flex rounded-full h-2 w-2 ${
+                      isOffline ? "bg-zinc-500" : "bg-blue-600"
+                    }`}
+                  ></span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 ">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-50 ">
+                    {isOffline ? "System_Status:" : "Currently_Working:"}
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    {!isOffline && (
+                      <Code size={14} className="text-blue-400 shrink-0" />
+                    )}
+
+                    <span
+                      className={`font-mono font-bold transition-colors duration-300 ${
+                        isOffline
+                          ? "text-zinc-500"
+                          : darkMode
+                          ? "text-white/90"
+                          : "text-black/90"
+                      } group-hover/activity:text-blue-400`}
+                    >
+                      {isOffline
+                        ? "OFFLINE"
+                        : activity.details || activity.name}
+                    </span>
+
+                    {!isOffline && activity.state && (
+                      <span className="text-[11px] font-mono text-neutral-600 italic tracking-tighter">
+                        // {activity.state}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Subtle Scanline Animation - only shows when active */}
+                {!isOffline && (
+                  <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
+                    <div className="w-full h-full bg-gradient-to-r from-transparent via-blue-500/10 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           <p
             className={`text-lg ${theme.textMuted} leading-12 sm:leading-relaxed text-gray-400 py-2 px-1 space-y-6 `}
