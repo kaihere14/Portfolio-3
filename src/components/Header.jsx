@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { FileText, Send, MapPin, Clock, Code, CaseUpper } from "lucide-react";
-import { checkStatus } from "../hooks/useDiscord";
+
 import { stats } from "../data/portfolioData";
 
-const Header = ({ theme, darkMode, time, status }) => {
+const Header = ({ theme, darkMode, time, status, gitValue }) => {
   return (
     <header className="space-y-8">
       <div className="flex items-start justify-between">
@@ -66,7 +66,11 @@ const Header = ({ theme, darkMode, time, status }) => {
                       className={`text-xs font-semibold capitalize ${
                         status.data?.discord_status === "offline"
                           ? "text-zinc-500"
-                          : status.data?.discord_status === "online"? "text-green-500": status.data?.discord_status === "dnd"? "text-red-500": "text-yellow-500"
+                          : status.data?.discord_status === "online"
+                          ? "text-green-500"
+                          : status.data?.discord_status === "dnd"
+                          ? "text-red-500"
+                          : "text-yellow-500"
                       }`}
                     >
                       {status.data?.discord_status ?? "Offline"}
@@ -362,6 +366,10 @@ const Header = ({ theme, darkMode, time, status }) => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {stats.map((stat, idx) => {
           const StatIcon = stat.icon;
+          const valueToShow =
+            stat.label === "GitHub Commits"
+              ? gitValue ?? stat.value
+              : stat.value;
           return (
             <div
               key={stat.label}
@@ -375,7 +383,7 @@ const Header = ({ theme, darkMode, time, status }) => {
               <div
                 className={`text-2xl font-bold ${theme.textWhite} mb-1 group-hover:text-orange-400 transition-colors`}
               >
-                {stat.value}
+                {valueToShow}
               </div>
               <div className={`text-xs ${theme.textSubtle}`}>{stat.label}</div>
             </div>
