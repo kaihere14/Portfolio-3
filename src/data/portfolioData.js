@@ -83,12 +83,13 @@ export const experiences = [
     role: "Full-Stack Developer",
     company: "Personal Projects & Freelance",
     period: "2025 - Present",
-    highlights: [
-      "Built and deployed 8+ production-ready applications with 99.9% uptime",
-      "Implemented secure authentication systems and payment integrations",
-      "Optimized database queries reducing API response time by 60%",
-      "Architected scalable microservices handling 10k+ concurrent users",
-    ],
+   highlights: [
+  "Built and deployed multiple full-stack web applications on VPS and cloud platforms",
+  "Implemented JWT-based authentication with access & refresh tokens and role-based flows",
+  "Integrated payments, email services, caching, and secure API workflows in production",
+  "Designed scalable backend architectures with Redis caching and async job handling"
+]
+
   },
 ];
 
