@@ -26,27 +26,36 @@ const GitContributionMap = ({ theme, darkMode }) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <section
+      className="max-w-7xl mx-auto px-4 py-16"
+      aria-labelledby="github-activity-heading"
+    >
       <p
         className={`${theme.textSubtle} text-sm font-medium mb-3 ml-1 uppercase tracking-wider`}
+        aria-label="Featured Section"
       >
         Featured
       </p>
 
-      <div
+      <article
         className={`${theme.cardBg} backdrop-blur-md rounded-2xl p-6 md:p-10 ${theme.cardBorder} border shadow-2xl`}
+        aria-label="GitHub Activity Card"
       >
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
           <div className="space-y-1">
             <h2
+              id="github-activity-heading"
               className={`text-4xl font-bold ${theme.textWhite} tracking-tight`}
             >
               GitHub Activity
             </h2>
             <p className={`${theme.textMuted} text-lg`}>
               Total:{" "}
-              <span className="text-emerald-400 font-mono font-semibold">
+              <span
+                className="text-emerald-400 font-mono font-semibold"
+                aria-label="Total GitHub Contributions"
+              >
                 {gitValue || "1,987"}
               </span>{" "}
               contributions
@@ -55,13 +64,19 @@ const GitContributionMap = ({ theme, darkMode }) => {
 
           {/* Discord activity status */}
           {vscodeActivity && (
-            <div className="text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-emerald-500/50 px-4 md:px-0 md:pr-4">
+            <div
+              className="text-left md:text-right border-l-2 md:border-l-0 md:border-r-2 border-emerald-500/50 px-4 md:px-0 md:pr-4"
+              aria-label="VSCode Discord Activity"
+            >
               <p
                 className={`${theme.text} text-sm font-medium flex items-center md:justify-end gap-2 mb-1`}
               >
                 Currently coding in{" "}
                 <span className={theme.textWhite}>VsCode</span>
-                <span className="inline-block w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <span
+                  className="inline-block w-2 h-2 bg-emerald-500 rounded-full animate-pulse"
+                  aria-label="Active coding status"
+                />
               </p>
               <p className={`${theme.textMuted} text-xs leading-relaxed`}>
                 {formatElapsedTime(vscodeActivity.timestamps?.start)} elapsed •{" "}
@@ -71,22 +86,23 @@ const GitContributionMap = ({ theme, darkMode }) => {
               </p>
             </div>
           )}
-        </div>
+        </header>
 
         {/* GitHub Calendar Container */}
         <div className="flex justify-center items-center overflow-hidden w-full pt-4">
-          <div className="overflow-x-auto w-full  flex justify-center custom-scrollbar">
+          <div className="overflow-x-auto w-full flex justify-center custom-scrollbar">
             <GitHubCalendar
               username="kaihere14"
               colorScheme={darkMode ? "dark" : "light"}
               blockSize={7}
               blockMargin={4}
               fontSize={14}
+              aria-label="GitHub Contribution Calendar"
             />
           </div>
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 

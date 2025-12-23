@@ -1,12 +1,13 @@
-import React from 'react'
-import Portfolio from './pages/hero'
+import React from "react";
+import Portfolio from "./pages/hero";
 
 const App = () => {
   return (
     <div>
-      <Portfolio/>
+      {/* SEO: Ensure all images have descriptive alt text and semantic structure */}
+      <Portfolio />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
