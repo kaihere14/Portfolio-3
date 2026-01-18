@@ -1,15 +1,25 @@
-import React from "react";
-import { Analytics } from "@vercel/analytics/react";
+import { useEffect } from "react";
 import Portfolio from "./pages/hero";
+import {Analytics} from "@vercel/analytics/react";
 
-const App = () => {
+function App() {
+  useEffect(() => {
+    if (window.__ONEKO_LOADED__) return;
+    window.__ONEKO_LOADED__ = true;
+
+    const script = document.createElement("script");
+    script.src = "/oneko/oneko.js"; // ✅ absolute root path
+    script.defer = true;
+
+    document.body.prepend(script);
+  }, []);
+
   return (
-    <div>
+    <>
       <Portfolio />
       <Analytics />
-    </div>
-  );
-};
-
+    </>
+  )
+}
 
 export default App;
