@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 import Portfolio from "./pages/hero";
 import { Analytics } from "@vercel/analytics/react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Blogs from "./pages/Blogs";
 import Dnsworking from "./pages/Blogs/Dnsworking";
 import CurlGuide from "./pages/Blogs/CurlGuide";
 
 function App() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   useEffect(() => {
     if (window.__ONEKO_LOADED__) return;
     window.__ONEKO_LOADED__ = true;
