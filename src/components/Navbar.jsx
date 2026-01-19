@@ -1,23 +1,103 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Sun, Moon, Search, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  Sun,
+  Moon,
+  Search,
+  X,
+  FileText,
+  Home,
+  Briefcase,
+  FolderOpen,
+  User,
+} from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ theme, darkMode, setDarkMode }) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Searchable items
+  const searchItems = [
+    { name: "Home", type: "page", href: "/", icon: Home },
+    {
+      name: "Work Experience",
+      type: "section",
+      href: "/#work",
+      icon: Briefcase,
+    },
+    { name: "Projects", type: "section", href: "/#projects", icon: FolderOpen },
+    { name: "About", type: "section", href: "/#about", icon: User },
+    { name: "All Blogs", type: "page", href: "/blogs", icon: FileText },
+    {
+      name: "How DNS Resolution Works",
+      type: "blog",
+      href: "/blogs/how-dns-resolution-works",
+      icon: FileText,
+    },
+    {
+      name: "What is cURL and How to Use It",
+      type: "blog",
+      href: "/blogs/what-is-curl",
+      icon: FileText,
+    },
+  ];
+
+  // Filter items based on search query
+  const filteredItems = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const query = searchQuery.toLowerCase();
+    return searchItems.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query) ||
+        item.type.toLowerCase().includes(query),
+    );
+  }, [searchQuery]);
+
+  // Handle navigation
+  const handleNavigate = (item) => {
+    setSearchOpen(false);
+    setSearchQuery("");
+
+    if (item.href.startsWith("/#")) {
+      const sectionId = item.href.replace("/#", "");
+      if (location.pathname === "/") {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        navigate("/");
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
+    } else {
+      navigate(item.href);
+    }
+  };
 
   // Handle keyboard shortcut (⌘K or Ctrl+K)
-  const handleKeyDown = useCallback((e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-      e.preventDefault();
-      setSearchOpen((prev) => !prev);
-    }
-    if (e.key === "Escape") {
-      setSearchOpen(false);
-      setSearchQuery("");
-    }
-  }, []);
+  const handleKeyDown = useCallback(
+    (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+      if (e.key === "Escape") {
+        setSearchOpen(false);
+        setSearchQuery("");
+      }
+      if (e.key === "Enter" && searchOpen && filteredItems.length > 0) {
+        handleNavigate(filteredItems[0]);
+      }
+    },
+    [searchOpen, filteredItems],
+  );
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
@@ -32,7 +112,6 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
 
   const handleNavClick = (e, link) => {
     if (link.href.startsWith("/#")) {
-      // If we're on the homepage, scroll to section
       if (location.pathname === "/") {
         e.preventDefault();
         const sectionId = link.href.replace("/#", "");
@@ -41,7 +120,6 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
           element.scrollIntoView({ behavior: "smooth" });
         }
       }
-      // If not on homepage, the Link will navigate to /, then we scroll
     }
   };
 
@@ -62,22 +140,18 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
             "linear-gradient(to top, black 0%, black 20%, transparent 100%)",
         }}
       />
+
       {/* Main Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50">
-        {/* Gradient blur background - high blur at top, fades to less at bottom */}
+      <nav className="fixed top-0 left-0 right-0 z-50 pl-2">
         <div
-          className="absolute inset-x-0 top-0 h-17 pointer-events-none"
-          style={{
-            backdropFilter: "blur(10px)",
-          }}
+          className="absolute inset-x-0 top-0 h-18 pointer-events-none"
+          style={{ backdropFilter: "blur(7px)" }}
         />
 
-        {/* Navbar Content */}
-        <div className="relative max-w-3xl mx-auto px-6 pt-2">
+        <div className="relative max-w-3xl mx-auto px-6 pt-4">
           <div className="flex items-end justify-between">
             {/* Left: Avatar + Nav Links */}
             <div className="flex items-end gap-3">
-              {/* Avatar - light blue in light mode, yellow in dark mode */}
               <Link to="/" className="relative group">
                 <div
                   className={`w-13 h-13 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-105 ${
@@ -86,34 +160,32 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
                 >
                   <img
                     src="https://res.cloudinary.com/dw87upoot/image/upload/v1763497871/Gemini_Generated_Image_2_Background_Removed_tkozqp.png"
-                    alt="Arman Thakur"
+                    alt="Avatar"
                     className="w-full h-full object-cover"
                   />
                 </div>
               </Link>
 
-              {/* Navigation Links - aligned to bottom */}
-              <div className="flex items-center gap-3">
+              <nav className="flex items-center gap-6 pb-1.5">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
-                    to={link.href.startsWith("/#") ? "/" : link.href}
+                    to={link.href}
                     onClick={(e) => handleNavClick(e, link)}
-                    className={`text-base font-medium transition-all duration-200 ${
+                    className={`text-sm font-medium transition-colors duration-200 ${
                       darkMode
-                        ? "text-neutral-300 hover:text-white"
-                        : "text-neutral-700 hover:text-black"
+                        ? "text-neutral-400 hover:text-white"
+                        : "text-neutral-500 hover:text-black"
                     }`}
                   >
                     {link.name}
                   </Link>
                 ))}
-              </div>
+              </nav>
             </div>
 
             {/* Right: Search + Theme Toggle */}
             <div className="flex items-center gap-2 sm:mb-3">
-              {/* Search Button */}
               <button
                 onClick={() => setSearchOpen(true)}
                 className={`flex items-center gap-2 p-3 sm:px-3 sm:py-2 text-sm rounded-lg transition-all duration-200 ${
@@ -141,7 +213,6 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
                 </kbd>
               </button>
 
-              {/* Theme Toggle */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className={`p-3 sm:p-[10px] rounded-lg transition-all duration-200 ${
@@ -163,7 +234,7 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
         </div>
       </nav>
 
-      {/* Search Modal Overlay */}
+      {/* Search Modal */}
       {searchOpen && (
         <div
           className="fixed inset-0 z-[100] flex items-start justify-center pt-24"
@@ -172,20 +243,14 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
             setSearchQuery("");
           }}
         >
-          {/* Backdrop */}
           <div
-            className={`absolute inset-0 ${
-              darkMode ? "bg-black/60" : "bg-black/30"
-            } backdrop-blur-sm`}
+            className={`absolute inset-0 ${darkMode ? "bg-black/60" : "bg-black/30"} backdrop-blur-sm`}
           />
 
-          {/* Search Modal */}
           <div
             className={`relative w-full max-w-xl mx-4 ${
               darkMode ? "bg-neutral-900" : "bg-white"
-            } border ${
-              darkMode ? "border-neutral-800" : "border-neutral-200"
-            } rounded-2xl shadow-2xl overflow-hidden`}
+            } border ${darkMode ? "border-neutral-800" : "border-neutral-200"} rounded-2xl shadow-2xl overflow-hidden`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Search Input */}
@@ -219,59 +284,84 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
               </button>
             </div>
 
-            {/* Search Results Placeholder */}
+            {/* Search Results */}
             <div
-              className={`border-t ${
-                darkMode ? "border-neutral-800" : "border-neutral-200"
-              } p-4`}
+              className={`border-t ${darkMode ? "border-neutral-800" : "border-neutral-200"} p-4 max-h-80 overflow-y-auto`}
             >
               {searchQuery ? (
-                <div className="space-y-2">
+                filteredItems.length > 0 ? (
+                  <div className="space-y-1">
+                    {filteredItems.map((item) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <button
+                          key={item.href}
+                          onClick={() => handleNavigate(item)}
+                          className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-colors ${
+                            darkMode
+                              ? "hover:bg-neutral-800 text-neutral-300"
+                              : "hover:bg-neutral-100 text-neutral-600"
+                          }`}
+                        >
+                          <IconComponent
+                            size={18}
+                            className={
+                              darkMode ? "text-neutral-500" : "text-neutral-400"
+                            }
+                          />
+                          <div className="flex-1">
+                            <span className="text-sm font-medium block">
+                              {item.name}
+                            </span>
+                            <span
+                              className={`text-xs ${darkMode ? "text-neutral-500" : "text-neutral-400"}`}
+                            >
+                              {item.type}
+                            </span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
                   <p
-                    className={`text-sm ${
-                      darkMode ? "text-neutral-500" : "text-neutral-400"
-                    }`}
+                    className={`text-sm text-center py-4 ${darkMode ? "text-neutral-500" : "text-neutral-400"}`}
                   >
-                    Searching for "{searchQuery}"...
+                    No results found for "{searchQuery}"
                   </p>
-                  {/* You can add actual search results here */}
-                </div>
+                )
               ) : (
                 <div className="space-y-3">
                   <p
-                    className={`text-xs font-medium uppercase tracking-wider ${
-                      darkMode ? "text-neutral-600" : "text-neutral-400"
-                    }`}
+                    className={`text-xs font-medium uppercase tracking-wider ${darkMode ? "text-neutral-600" : "text-neutral-400"}`}
                   >
                     Quick Links
                   </p>
                   <div className="space-y-1">
-                    {["Home", "Projects", "Blogs", "About"].map((item) => (
-                      <button
-                        key={item}
-                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors ${
-                          darkMode
-                            ? "hover:bg-neutral-800 text-neutral-300"
-                            : "hover:bg-neutral-100 text-neutral-600"
-                        }`}
-                        onClick={() => {
-                          setSearchOpen(false);
-                          setSearchQuery("");
-                          // Navigate to section
-                          const sectionId = item.toLowerCase();
-                          if (sectionId === "home") {
-                            window.scrollTo({ top: 0, behavior: "smooth" });
-                          } else {
-                            const element = document.getElementById(sectionId);
-                            if (element) {
-                              element.scrollIntoView({ behavior: "smooth" });
+                    {searchItems.slice(0, 5).map((item) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <button
+                          key={item.href}
+                          onClick={() => handleNavigate(item)}
+                          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors ${
+                            darkMode
+                              ? "hover:bg-neutral-800 text-neutral-300"
+                              : "hover:bg-neutral-100 text-neutral-600"
+                          }`}
+                        >
+                          <IconComponent
+                            size={16}
+                            className={
+                              darkMode ? "text-neutral-500" : "text-neutral-400"
                             }
-                          }
-                        }}
-                      >
-                        <span className="text-sm font-medium">{item}</span>
-                      </button>
-                    ))}
+                          />
+                          <span className="text-sm font-medium">
+                            {item.name}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -288,9 +378,7 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1">
                   <kbd
-                    className={`px-1.5 py-0.5 rounded ${
-                      darkMode ? "bg-neutral-800" : "bg-neutral-100"
-                    }`}
+                    className={`px-1.5 py-0.5 rounded ${darkMode ? "bg-neutral-800" : "bg-neutral-100"}`}
                   >
                     ↵
                   </kbd>
@@ -298,9 +386,7 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
                 </span>
                 <span className="flex items-center gap-1">
                   <kbd
-                    className={`px-1.5 py-0.5 rounded ${
-                      darkMode ? "bg-neutral-800" : "bg-neutral-100"
-                    }`}
+                    className={`px-1.5 py-0.5 rounded ${darkMode ? "bg-neutral-800" : "bg-neutral-100"}`}
                   >
                     esc
                   </kbd>

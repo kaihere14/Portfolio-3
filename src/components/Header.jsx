@@ -4,161 +4,103 @@ import { FileText, Send, MapPin, Clock, Code, CaseUpper } from "lucide-react";
 import { stats } from "../data/portfolioData";
 
 const Header = ({ theme, darkMode, time, status, gitValue }) => {
-  
   return (
-    <header className="space-y-8">
+    <header className="space-y-8 mt-14">
       <div className="flex items-start justify-between">
-        <div className="space-y-3">
-          <div
-            className={`h-16 w-16 ${theme.cardBg} rounded-2xl border ${theme.cardBorder} mb-6 flex items-center justify-center overflow-hidden relative group cursor-pointer`}
-          >
-            <div className="absolute inset-0 bg-linear-to-tr from-orange-400/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-            <div className="absolute inset-0 bg-linear-to-br from-orange-400/10 to-transparent opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500"></div>
-            <img
-              src="https://res.cloudinary.com/dw87upoot/image/upload/v1763497871/Gemini_Generated_Image_2_Background_Removed_tkozqp.png"
-              alt="Logo"
-              className="w-16 h-16 object-contain relative z-10 group-hover:scale-110 transition-transform duration-300"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <h1
-              className={`text-5xl font-bold tracking-tight bg-linear-to-r ${theme.gradientText} bg-clip-text text-transparen`}
+        <div className="space-y-8">
+          {/* Avatar + Status */}
+          <div className="relative inline-block">
+            <div
+              className={`h-24 w-24 ${darkMode ? "bg-amber-300" : "bg-sky-200"} rounded-full flex items-center justify-center overflow-hidden relative group cursor-pointer`}
             >
-              Arman Thakur
-            </h1>
-            {status ? (
-              <div
-                className={`group  relative inline-flex items-center gap-2 rounded-full border pl-2 h-6 ${theme.cardBorder} ${theme.bentoBg} backdrop-blur-sm transition-all duration-500 ease-in-out hover:pr-4 hover:${theme.bentoHoverBg}`}
-                role="status"
-              >
-                {/* The Indicator Dot */}
-                <div className="relative flex h-2.5 w-2.5 flex-shrink-0">
-                  {status.data?.discord_status !== "offline" && (
+              <img
+                src="https://res.cloudinary.com/dw87upoot/image/upload/v1763497871/Gemini_Generated_Image_2_Background_Removed_tkozqp.png"
+                alt="Arman"
+                className="w-24 h-24 object-cover relative z-10"
+              />
+            </div>
+
+            {/* Status Indicator - positioned at bottom right of avatar */}
+            {status && (
+              <div className="absolute -bottom-1 left-16 z-20">
+                <div
+                  className={`group flex items-center p-1 rounded-full ${
+                    darkMode
+                      ? "bg-[#111]"
+                      : "bg-white border border-neutral-200"
+                  } transition-all duration-300 ease-out hover:pr-4`}
+                  role="status"
+                >
+                  {/* Dot - Always visible, fixed size */}
+                  <div className="relative flex h-6 w-6 items-center justify-center shrink-0">
+                    {status.data?.discord_status !== "offline" && (
+                      <span
+                        className={`absolute inline-flex h-3.5 w-3.5 animate-ping rounded-full opacity-20 ${
+                          status.data?.discord_status === "online"
+                            ? "bg-green-500"
+                            : status.data?.discord_status === "dnd"
+                              ? "bg-red-500"
+                              : "bg-yellow-500"
+                        }`}
+                      ></span>
+                    )}
                     <span
-                      className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-40 ${
+                      className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
                         status.data?.discord_status === "online"
                           ? "bg-green-500"
                           : status.data?.discord_status === "dnd"
-                          ? "bg-red-500"
-                          : "bg-yellow-500"
+                            ? "bg-red-500"
+                            : status.data?.discord_status === "idle"
+                              ? "bg-yellow-500"
+                              : "bg-zinc-500"
                       }`}
                     ></span>
-                  )}
-                  <span
-                    className={`relative inline-flex rounded-full h-2.5 w-2.5 border border-black/20 ${
-                      status.data?.discord_status === "online"
-                        ? "bg-green-500"
-                        : status.data?.discord_status === "dnd"
-                        ? "bg-red-500"
-                        : status.data?.discord_status === "idle"
-                        ? "bg-yellow-500"
-                        : "bg-zinc-500"
-                    }`}
-                  ></span>
-                </div>
+                  </div>
 
-                {/* The Expanding Text Container */}
-                <div className="flex max-w-0 overflow-hidden transition-all rounded-full duration-500 ease-in-out group-hover:max-w-[120px] ">
-                  <div className="flex items-center gap-1.5 whitespace-nowrap opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <span className="text-[10px] font-bold uppercase tracking-tighter text-zinc-500">
-                      Discord
-                    </span>
+                  {/* Text - Expands smoothly (Robust max-width method) */}
+                  <div className="max-w-0 group-hover:max-w-[150px] overflow-hidden transition-all duration-500 ease-out">
                     <span
-                      className={`text-xs font-semibold capitalize ${
+                      className={`block pl-2 text-xs font-semibold capitalize whitespace-nowrap opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-75 ${
                         status.data?.discord_status === "offline"
                           ? "text-zinc-500"
                           : status.data?.discord_status === "online"
-                          ? "text-green-500"
-                          : status.data?.discord_status === "dnd"
-                          ? "text-red-500"
-                          : "text-yellow-500"
+                            ? "text-green-500"
+                            : status.data?.discord_status === "dnd"
+                              ? "text-red-500"
+                              : "text-yellow-500"
                       }`}
                     >
                       {status.data?.discord_status ?? "Offline"}
                     </span>
                   </div>
                 </div>
-
-                {/* Screen Reader Only */}
-                <span className="sr-only">{`Discord: ${
-                  status.data?.discord_status ?? "offline"
-                }`}</span>
               </div>
-            ) : (
-              <div className="h-8 w-8 rounded-full bg-zinc-800/50 animate-pulse border border-white/5" />
             )}
           </div>
 
-          {/* Discord Activity */}
-          {(() => {
-            // Logic: Find VS Code specifically - if not found, show as offline
-            const activity = status?.data?.activities?.find(
-              (a) => a.name === "Visual Studio Code"
-            );
-            const isOffline = !activity;
-
-            return (
-              <div
-                className={`relative flex items-center gap-3 text-sm ${theme.textSubtle} group/activity cursor-default py-1`}
+          {/* Name and Title */}
+          <h1
+            className={`text-4xl sm:text-5xl font-bold tracking-tight leading-[1.15]`}
+          >
+            <span
+              className={`block ${darkMode ? "text-white" : "text-neutral-900"}`}
+            >
+              Hi, I'm Arman{" "}
+              <span
+                className={darkMode ? "text-neutral-500" : "text-neutral-400"}
               >
-                {/* Dynamic Status Indicator */}
-                <div className="relative flex h-2 w-2">
-                  <span
-                    className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                      isOffline ? "bg-zinc-600" : "bg-blue-500 animate-ping"
-                    }`}
-                  ></span>
-                  <span
-                    className={`relative inline-flex rounded-full h-2 w-2 ${
-                      isOffline ? "bg-zinc-500" : "bg-blue-600"
-                    }`}
-                  ></span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 ">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-50 ">
-                    {isOffline ? "Working_Status:" : "Currently_Working:"}
-                  </span>
-
-                  <div className="flex items-center gap-2">
-                    {!isOffline && (
-                      <Code size={14} className="text-blue-400 shrink-0" />
-                    )}
-
-                    <span
-                      className={`font-mono font-bold transition-colors duration-300 ${
-                        isOffline
-                          ? "text-zinc-500"
-                          : darkMode
-                          ? "text-white/90"
-                          : "text-black/90"
-                      } group-hover/activity:text-blue-400`}
-                    >
-                      {isOffline
-                        ? "OFFLINE"
-                        : activity.details || activity.name}
-                    </span>
-
-                    {!isOffline && activity.state && (
-                      <span className="text-[11px] font-mono text-neutral-600 italic tracking-tighter">
-                        // {activity.state}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Subtle Scanline Animation - only shows when active */}
-                {!isOffline && (
-                  <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-                    <div className="w-full h-full bg-gradient-to-r from-transparent via-blue-500/10 to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
-                  </div>
-                )}
-              </div>
-            );
-          })()}
+                —
+              </span>
+            </span>
+            <span
+              className={`block ${darkMode ? "text-neutral-500" : "text-neutral-400"}`}
+            >
+              A Full Stack web developer.
+            </span>
+          </h1>
 
           <p
-            className={`text-lg ${theme.textMuted} leading-12 sm:leading-relaxed text-gray-400 py-2 px-1 space-y-6 `}
+            className={`text-lg ${theme.textMuted} leading-8 sm:leading-relaxed text-gray-400 py-2 px-1 space-y-6 `}
           >
             I build modern, interactive web applications using{" "}
             <span
@@ -437,7 +379,7 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
           const StatIcon = stat.icon;
           const valueToShow =
             stat.label === "GitHub Commits"
-              ? gitValue ?? stat.value
+              ? (gitValue ?? stat.value)
               : stat.value;
           return (
             <div
@@ -447,11 +389,9 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
             >
               <StatIcon
                 size={18}
-                className={`${stat.color} mb-2 group-hover:scale-110 transition-transform duration-300`}
+                className={`${darkMode ? "text-white/70" : "text-neutral-600"} mb-2 transition-transform duration-300`}
               />
-              <div
-                className={`text-2xl font-bold ${theme.textWhite} mb-1 group-hover:text-orange-400 transition-colors`}
-              >
+              <div className={`text-2xl font-bold ${theme.textWhite} mb-1`}>
                 {valueToShow}
               </div>
               <div className={`text-xs ${theme.textSubtle}`}>{stat.label}</div>
@@ -464,14 +404,14 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {/* Location */}
         <div
-          className={`col-span-1 ${theme.bentoBg} border ${theme.cardBorder} rounded-xl p-4 flex flex-col justify-between hover:${theme.cardHoverBorder} hover:${theme.bentoHoverBg} transition-all duration-300 group`}
+          className={`col-span-1 ${theme.bentoBg} border ${theme.cardBorder} rounded-xl p-4 flex flex-col justify-between transition-all duration-300 group`}
         >
           <MapPin
             size={18}
-            className={`${theme.textSubtle} group-hover:text-orange-400 transition-colors`}
+            className={`${theme.textSubtle} transition-colors`}
           />
           <span
-            className={`text-sm font-medium ${theme.bentoText} group-hover:${theme.textWhite} transition-colors`}
+            className={`text-sm font-medium ${theme.bentoText} transition-colors`}
           >
             Himachal, India
           </span>
@@ -479,14 +419,14 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
 
         {/* Time */}
         <div
-          className={`col-span-1 ${theme.bentoBg} border ${theme.cardBorder} rounded-xl p-4 flex flex-col justify-between hover:${theme.cardHoverBorder} hover:${theme.bentoHoverBg} transition-all duration-300 group`}
+          className={`col-span-1 ${theme.bentoBg} border ${theme.cardBorder} rounded-xl p-4 flex flex-col justify-between transition-all duration-300 group`}
         >
           <Clock
             size={18}
-            className={`${theme.textSubtle} group-hover:text-blue-400 transition-colors`}
+            className={`${theme.textSubtle} transition-colors`}
           />
           <span
-            className={`text-sm font-medium ${theme.bentoText} group-hover:${theme.textWhite} transition-colors font-mono`}
+            className={`text-sm font-medium ${theme.bentoText} transition-colors font-mono`}
           >
             {time.toLocaleTimeString([], {
               hour: "2-digit",
@@ -498,12 +438,12 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
 
         {/* Status / Activity */}
         <div
-          className={`col-span-2 ${theme.bentoBg} border ${theme.cardBorder} rounded-xl p-4 flex items-center justify-between gap-4 hover:border-green-900/50 hover:${theme.bentoHoverBg} transition-all duration-300 group cursor-default`}
+          className={`col-span-2 ${theme.bentoBg} border ${theme.cardBorder} rounded-xl p-4 flex items-center justify-between gap-4 transition-all duration-300 group cursor-default`}
         >
           <div className="flex items-center gap-3">
             <div className="relative">
               <div className="absolute -inset-1 bg-green-500/20 rounded-full animate-pulse"></div>
-              <div className="h-2 w-2 bg-green-500 rounded-full relative z-10 group-hover:scale-125 transition-transform"></div>
+              <div className="h-2 w-2 bg-green-500 rounded-full relative z-10 transition-transform"></div>
             </div>
             <div className="flex flex-col">
               <span
@@ -512,16 +452,13 @@ const Header = ({ theme, darkMode, time, status, gitValue }) => {
                 Current Focus
               </span>
               <span
-                className={`text-sm font-medium ${theme.textWhite} group-hover:text-green-400 transition-colors`}
+                className={`text-sm font-medium ${theme.textWhite} transition-colors`}
               >
-                Building NovaDrive
+                Building DaemonDoc
               </span>
             </div>
           </div>
-          <Code
-            size={18}
-            className="text-neutral-600 group-hover:text-green-500 transition-colors"
-          />
+          <Code size={18} className="text-neutral-600 transition-colors" />
         </div>
       </div>
     </header>

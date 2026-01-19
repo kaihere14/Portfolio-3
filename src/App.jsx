@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import Portfolio from "./pages/hero";
-import {Analytics} from "@vercel/analytics/react";
-import { Routes,Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
+import { Routes, Route } from "react-router-dom";
 import Blogs from "./pages/Blogs";
+import Dnsworking from "./pages/Blogs/Dnsworking";
+import CurlGuide from "./pages/Blogs/CurlGuide";
 
 function App() {
   useEffect(() => {
@@ -22,11 +24,16 @@ function App() {
         <Routes>
           <Route path="/" element={<Portfolio />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route
+            path="/blogs/how-dns-resolution-works"
+            element={<Dnsworking />}
+          />
+          <Route path="/blogs/what-is-curl" element={<CurlGuide />} />
         </Routes>
       </div>
       <Analytics />
     </>
-  )
+  );
 }
 
 export default App;

@@ -10,10 +10,6 @@ import {
   Folder,
 } from "lucide-react";
 
-
-
-
-
 export const techStack = [
   {
     name: "React",
@@ -87,13 +83,12 @@ export const experiences = [
     role: "Full-Stack Developer",
     company: "Personal Projects & Freelance",
     period: "2025 - Present",
-   highlights: [
-  "Built and deployed multiple full-stack web applications on VPS and cloud platforms",
-  "Implemented JWT-based authentication with access & refresh tokens and role-based flows",
-  "Integrated payments, email services, caching, and secure API workflows in production",
-  "Designed scalable backend architectures with Redis caching and async job handling"
-]
-
+    highlights: [
+      "Built and deployed multiple full-stack web applications on VPS and cloud platforms",
+      "Implemented JWT-based authentication with access & refresh tokens and role-based flows",
+      "Integrated payments, email services, caching, and secure API workflows in production",
+      "Designed scalable backend architectures with Redis caching and async job handling",
+    ],
   },
 ];
 
@@ -102,25 +97,25 @@ export const stats = [
     label: "Projects Shipped",
     value: "8+",
     icon: Layers,
-    color: "text-purple-400",
+    color: "text-white/70",
   },
   {
     label: "GitHub Commits",
-    value:  "900+",
+    value: "900+",
     icon: GitBranch,
-    color: "text-green-400",
+    color: "text-white/70",
   },
   {
     label: "Technologies",
     value: "12+",
     icon: Cpu,
-    color: "text-blue-400",
+    color: "text-white/70",
   },
   {
     label: "Lines of Code",
     value: "15k+",
     icon: Code,
-    color: "text-yellow-400",
+    color: "text-white/70",
   },
 ];
 
