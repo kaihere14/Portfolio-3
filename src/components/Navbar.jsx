@@ -142,7 +142,7 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
       />
 
       {/* Main Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 pl-2">
+      <nav className="fixed top-0 left-0 right-0 z-50 pl-1">
         <div
           className="absolute inset-x-0 top-0 h-18 pointer-events-none"
           style={{ backdropFilter: "blur(7px)" }}
@@ -174,8 +174,8 @@ const Navbar = ({ theme, darkMode, setDarkMode }) => {
                     onClick={(e) => handleNavClick(e, link)}
                     className={`text-sm font-medium transition-colors duration-200 ${
                       darkMode
-                        ? "text-neutral-400 hover:text-white"
-                        : "text-neutral-500 hover:text-black"
+                        ? "text-white hover:text-white"
+                        : "text-black hover:text-black"
                     }`}
                   >
                     {link.name}
