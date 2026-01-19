@@ -4,7 +4,7 @@ import { useTime } from "../hooks/useTime";
 import { useMousePosition } from "../hooks/useMousePosition";
 import { useSpotify } from "../hooks/useSpotify";
 import { checkStatus } from "../hooks/useDiscord";
-import ThemeToggle from "../components/ThemeToggle";
+
 import CursorEffect from "../components/CursorEffect";
 import BackgroundPattern from "../components/BackgroundPattern";
 import Header from "../components/Header";
@@ -15,7 +15,7 @@ import AboutSection from "../components/AboutSection";
 import TechStackSection from "../components/TechStackSection";
 import AchievementsSection from "../components/AchievementsSection";
 import Footer from "../components/Footer";
-import FloatingDock from "../components/FloatingDock";
+import Navbar from "../components/Navbar";
 import useGithubCommits from "../hooks/useGithubCommits";
 import GitContributionMap from "../components/GitContributionMap";
 
@@ -33,15 +33,11 @@ const Portfolio = () => {
     <div
       className={`min-h-screen ${theme.mainBg} ${theme.text} font-sans ${theme.selection} pb-32 overflow-x-hidden transition-colors duration-300`}
     >
-      <ThemeToggle
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-        theme={theme}
-      />
+      <Navbar theme={theme} darkMode={darkMode} setDarkMode={setDarkMode} />
       <CursorEffect mousePosition={mousePosition} darkMode={darkMode} />
       <BackgroundPattern theme={theme} />
 
-      <main className="max-w-3xl mx-auto px-6 pt-16 relative z-10 space-y-16">
+      <main className="max-w-3xl mx-auto px-6 pt-24 relative z-10 space-y-16">
         <Header
           theme={theme}
           darkMode={darkMode}
@@ -65,20 +61,26 @@ const Portfolio = () => {
           setHoveredTech={setHoveredTech}
         />
 
-        <ExperienceSection theme={theme} darkMode={darkMode} />
+        <section id="work">
+          <ExperienceSection theme={theme} darkMode={darkMode} />
+        </section>
 
         <hr className={theme.hr} />
 
-        <ProjectsSection
-          theme={theme}
-          darkMode={darkMode}
-          hoveredProject={hoveredProject}
-          setHoveredProject={setHoveredProject}
-        />
+        <section id="projects">
+          <ProjectsSection
+            theme={theme}
+            darkMode={darkMode}
+            hoveredProject={hoveredProject}
+            setHoveredProject={setHoveredProject}
+          />
+        </section>
 
         <hr className={theme.hr} />
 
-        <AboutSection theme={theme} darkMode={darkMode} />
+        <section id="about">
+          <AboutSection theme={theme} darkMode={darkMode} />
+        </section>
 
         <hr className={theme.hr} />
 
@@ -92,8 +94,6 @@ const Portfolio = () => {
 
         <Footer theme={theme} darkMode={darkMode} />
       </main>
-
-      <FloatingDock theme={theme} darkMode={darkMode} />
     </div>
   );
 };
