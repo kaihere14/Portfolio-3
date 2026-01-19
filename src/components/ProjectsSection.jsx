@@ -1,5 +1,11 @@
-import React from "react";
-import { ArrowUpRight, Globe, Github } from "lucide-react";
+import React, { useState } from "react";
+import {
+  ArrowUpRight,
+  Globe,
+  Github,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 // Helper function to get tech icon (socket icon adapts to mode)
 const getTechIcon = (techName, isDarkMode = false) => {
@@ -91,6 +97,8 @@ const getTechIcon = (techName, isDarkMode = false) => {
 };
 
 const ProjectsSection = ({ theme, darkMode }) => {
+  const [showAll, setShowAll] = useState(false);
+
   // Normalize theme tokens with light/dark fallbacks so this section follows the global ThemeToggle
   const palette = {
     textPrimary:
@@ -117,25 +125,62 @@ const ProjectsSection = ({ theme, darkMode }) => {
       (darkMode ? "border-neutral-800" : "border-neutral-200"),
   };
   const projects = [
+    // =========================
+    // SYSTEM / SERIOUS PROJECTS
+    // =========================
+
+    {
+      id: "daemon-doc",
+      name: "DaemonDoc",
+      tagline: "AI README Generator",
+      description:
+        "AI-powered platform that automatically generates and keeps GitHub READMEs in sync using webhooks, background workers, and large language models.",
+      image:
+        "https://res.cloudinary.com/dw87upoot/image/upload/v1768783913/demon_kzk7lx.png", // add later
+      tech: ["React", "Node.js", "Express", "MongoDB", "Redis", "BullMQ"],
+      status: "All Systems Operational",
+      link: "https://www.daemondoc.online",
+      githubLink: "https://github.com/kaihere14/daemondoc",
+    },
+
     {
       id: "nova-drive",
       name: "NovaDrive",
       tagline: "Cloud Storage Platform",
       description:
-        "A comprehensive cloud storage solution with advanced file management and sharing capabilities",
+        "A next-generation cloud storage platform with chunked uploads, secure file handling, and AI-powered organization.",
       image:
         "https://res.cloudinary.com/duzmwp7ax/image/upload/v1766355746/nova_drive_wktbks.png",
       tech: ["React.js", "Node.js", "MongoDB", "Cloudflare R2"],
-      status: "Building",
+      status: "All Systems Operational",
       link: "https://www.novadrive.space/",
       githubLink: "https://github.com/kaihere14/Nova_Drive",
     },
+
+    {
+      id: "dns-server",
+      name: "Authoritative DNS Server",
+      tagline: "Custom DNS Infrastructure",
+      description:
+        "A minimal authoritative DNS server built in Node.js with Redis-backed storage and environment-based configuration.",
+      image:
+        "https://res.cloudinary.com/dw87upoot/image/upload/v1768783913/dns_xqb0au.png", // add later
+      tech: ["Node.js", "dns2", "Redis", "dotenv"],
+      status: "All Systems Operational",
+      link: "https://dns.pawpick.store/",
+      githubLink: "https://github.com/kaihere14/dns_server",
+    },
+
+    // =========================
+    // PRODUCT / APP PROJECTS
+    // =========================
+
     {
       id: "title-forge",
       name: "TitleForge",
       tagline: "AI Content Generator",
       description:
-        "AI-powered platform for generating engaging titles and content with advanced NLP capabilities",
+        "AI-powered platform for generating high-performing YouTube titles using modern NLP models.",
       image:
         "https://res.cloudinary.com/duzmwp7ax/image/upload/v1766355747/title_forge_wjzod7.png",
       tech: ["React.js", "Node.js", "MongoDB", "Gemini"],
@@ -143,12 +188,30 @@ const ProjectsSection = ({ theme, darkMode }) => {
       link: "https://www.titleforge.me/",
       githubLink: "https://github.com/kaihere14/Title-Forge",
     },
+
+    // =========================
+    // SIMPLE / STANDARD PROJECTS
+    // =========================
+    {
+      id: "disdrive",
+      name: "DisDrive",
+      tagline: "Discord-Powered Cloud Storage",
+      description:
+        "A full-stack cloud storage system that uses Discord as a backend, featuring JWT auth, file streaming, Discord bot commands, and metadata persistence.",
+      image:
+        "https://res.cloudinary.com/dw87upoot/image/upload/v1768783920/999_1x_shots_so_rylsco.png", // add later
+      tech: ["React", "Node.js", "Express", "MongoDB", "Discord.js", "JWT"],
+      status: "All Systems Operational",
+      link: "https://drive.pawpick.store",
+      githubLink: "https://github.com/kaihere14/dis_drive",
+    },
+
     {
       id: "chatx",
       name: "ChatX",
       tagline: "Real-time Chat Application",
       description:
-        "Real-time messaging platform with end-to-end encryption, group chats, and media sharing",
+        "A real-time chat application with group messaging and media sharing using WebSockets.",
       image:
         "https://res.cloudinary.com/duzmwp7ax/image/upload/v1766355747/chatx_imvxsd.png",
       tech: ["React", "Socket.io", "Express.js", "MongoDB"],
@@ -156,12 +219,13 @@ const ProjectsSection = ({ theme, darkMode }) => {
       link: "https://chatx-lcy3i.sevalla.app/",
       githubLink: "https://github.com/kaihere14/ChatX",
     },
+
     {
       id: "resolve-iq",
       name: "ResolveIQ",
-      tagline: "Smart Issue Tracker",
+      tagline: "Issue Tracking System",
       description:
-        "Intelligent issue tracking and resolution platform with AI-powered insights and analytics",
+        "An issue tracking platform with structured workflows and role-based access.",
       image:
         "https://res.cloudinary.com/duzmwp7ax/image/upload/v1766355747/resolve_iq_huhjom.png",
       tech: ["React.js", "Node.js", "MongoDB", "Express.js"],
@@ -195,17 +259,25 @@ const ProjectsSection = ({ theme, darkMode }) => {
 
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((project) => (
+        {(showAll ? projects : projects.slice(0, 4)).map((project, index) => (
           <div
             key={project.id}
-            className={`group relative ${palette.cardBg} border ${palette.cardBorder} rounded-2xl overflow-hidden hover:${palette.cardHoverBorder} hover:${palette.cardHoverBg} transition-all duration-300`}
+            className={`group relative flex flex-col ${palette.cardBg} border ${palette.cardBorder} rounded-2xl overflow-hidden hover:${palette.cardHoverBorder} hover:${palette.cardHoverBg} transition-all duration-500 ease-out`}
+            style={{
+              opacity: 1,
+              transform: "translateY(0)",
+              animation:
+                index >= 4
+                  ? `fadeSlideIn 0.4s ease-out ${(index - 4) * 0.1}s both`
+                  : "none",
+            }}
           >
-            {/* Image */}
+            {/* Image - Zoomed out */}
             <div className="relative h-48 overflow-hidden">
               <img
                 src={project.image}
                 alt={project.name}
-                className="w-full h-full object-cover scale-110 transform -rotate-2 group-hover:rotate-0 group-hover:scale-115 transition-all duration-500"
+                className="w-full h-full object-cover scale-100 transform group-hover:scale-105 transition-all duration-500"
                 style={{
                   transformOrigin: "center center",
                 }}
@@ -213,7 +285,7 @@ const ProjectsSection = ({ theme, darkMode }) => {
             </div>
 
             {/* Content */}
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-1">
               {/* Title & Icons */}
               <div className="flex items-start justify-between mb-3">
                 <h3
@@ -260,11 +332,11 @@ const ProjectsSection = ({ theme, darkMode }) => {
               </p>
 
               {/* Tech Stack */}
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 flex-1">
                 {project.tech.map((tech) => (
                   <span
                     key={tech}
-                    className={`text-xs ${palette.textMuted} ${palette.chipBg} border ${palette.cardBorder} px-2.5 py-1 rounded-md inline-flex items-center gap-1.5`}
+                    className={`text-xs ${palette.textMuted} ${palette.chipBg} border ${palette.cardBorder} px-2.5 py-1 rounded-md inline-flex items-center gap-1.5 h-fit`}
                   >
                     {getTechIcon(tech, darkMode)}
                     {tech}
@@ -274,7 +346,7 @@ const ProjectsSection = ({ theme, darkMode }) => {
 
               {/* Status Badge & View Details */}
               <div
-                className={`flex items-center justify-between pt-4 border-t ${palette.hr}`}
+                className={`flex items-center justify-between pt-4 mt-4 border-t ${palette.hr}`}
               >
                 <div className="flex items-center gap-2">
                   <div
@@ -311,6 +383,56 @@ const ProjectsSection = ({ theme, darkMode }) => {
           </div>
         ))}
       </div>
+
+      {/* Show More/Less Button */}
+      {projects.length > 4 && (
+        <div className="flex justify-center pt-6">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className={`
+              flex items-center gap-2 px-6 py-3 rounded-xl
+              ${
+                darkMode
+                  ? "bg-neutral-800/60 hover:bg-neutral-700/80 border-neutral-700 text-neutral-300 hover:text-white"
+                  : "bg-white/60 hover:bg-white/80 border-neutral-200 text-neutral-600 hover:text-neutral-900"
+              }
+              border backdrop-blur-sm
+              transition-all duration-300 ease-out
+              hover:shadow-lg
+              group
+            `}
+          >
+            <span className="text-sm font-medium">
+              {showAll ? "Show Less" : "Show More Projects"}
+            </span>
+            {showAll ? (
+              <ChevronUp
+                size={18}
+                className="group-hover:-translate-y-0.5 transition-transform duration-300"
+              />
+            ) : (
+              <ChevronDown
+                size={18}
+                className="group-hover:translate-y-0.5 transition-transform duration-300"
+              />
+            )}
+          </button>
+        </div>
+      )}
+
+      {/* Animation keyframes */}
+      <style>{`
+        @keyframes fadeSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };
