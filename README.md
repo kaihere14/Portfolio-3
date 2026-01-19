@@ -14,7 +14,7 @@
 Portfolio‑3 is a **single‑page React application** that showcases a developer’s work, experience, and personal stats in a visually rich, responsive layout. It ships with:
 
 * A **dark‑mode toggle** that persists across sessions.  
-* **Live Spotify now‑playing** card (requires a Spotify API token).  
+* **Live Spotify now‑playing** card (requires Spotify API credentials).  
 * **GitHub contributions calendar** powered by `react‑github‑calendar`.  
 * Interactive **cursor trail**, **oneko** cat animation, and smooth page transitions via **Framer Motion**.  
 
@@ -75,7 +75,6 @@ portfolio-3/
 │  ├─ utils/               # Helper functions (theme.js)
 │  ├─ App.jsx               # Root component – sets up routing & global effects
 │  └─ main.jsx              # Vite entry point – renders <App />
-├─ .env                     # Environment variables (Spotify token, GitHub token, etc.)
 ├─ vite.config.js           # Vite configuration (Tailwind plugin)
 └─ package.json
 ```
@@ -95,8 +94,8 @@ portfolio-3/
 | **Node.js** | 18.x |
 | **npm** | 9.x (comes with Node) |
 | **Git** | any recent version |
-| **Spotify API credentials** *(optional for now‑playing card)* | `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN` |
-| **GitHub token** *(optional for contributions calendar)* | `GITHUB_TOKEN` (public repos work without a token) |
+| **Spotify API credentials** *(optional for now‑playing card)* | `VITE_SPOTIFY_CLIENT_ID`, `VITE_SPOTIFY_CLIENT_SECRET`, `VITE_SPOTIFY_REFRESH_TOKEN` |
+| **GitHub token** *(optional for contributions calendar)* | `VITE_GITHUB_TOKEN` (public repos work without a token) |
 
 ### Installation  
 
@@ -107,12 +106,11 @@ cd Portfolio-3
 
 # 2️⃣ Install dependencies
 npm ci   # uses package-lock for reproducible installs
-
-# 3️⃣ Create a .env file (see below) and add your API keys
-cp .env.example .env   # if an example exists, otherwise create manually
 ```
 
 ### Configuration  
+
+Environment variables are read directly from the process environment (prefixed with `VITE_`). You can set them in your shell, CI pipeline, or a temporary `.env` file if you prefer – **the repository no longer ships a `.env` file**.
 
 | Variable | Description | Example |
 |----------|-------------|---------|
@@ -121,13 +119,13 @@ cp .env.example .env   # if an example exists, otherwise create manually
 | `VITE_SPOTIFY_REFRESH_TOKEN` | Long‑lived refresh token for the user | `AQB...` |
 | `VITE_GITHUB_TOKEN` | (optional) GitHub personal access token for higher rate limits | `ghp_...` |
 
-**`.env` sample**
+**Example (Unix shell)**
 
-```dotenv
-VITE_SPOTIFY_CLIENT_ID=your_spotify_client_id
-VITE_SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-VITE_SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
-VITE_GITHUB_TOKEN=your_github_token   # optional
+```bash
+export VITE_SPOTIFY_CLIENT_ID=your_spotify_client_id
+export VITE_SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+export VITE_SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
+export VITE_GITHUB_TOKEN=your_github_token   # optional
 ```
 
 ### Running the Project  
@@ -186,7 +184,7 @@ function Example() {
 }
 ```
 
-The component automatically fetches the currently playing track using the credentials defined in `.env`.
+The component automatically fetches the currently playing track using the credentials defined in the environment variables.
 
 ---  
 
@@ -213,7 +211,7 @@ The component automatically fetches the currently playing track using the creden
 
 1. Connect the repository to Vercel.  
 2. Vercel automatically detects the **Vite** build command (`npm run build`) and the output directory (`dist`).  
-3. Set the same environment variables in the Vercel dashboard as in your local `.env`.  
+3. Set the same environment variables in the Vercel dashboard as you would locally.  
 
 ### Docker (optional)  
 
@@ -279,11 +277,11 @@ If you wish to expose your own endpoints, add them under `src/api/` and document
 
 | Symptom | Likely Cause | Fix |
 |---------|--------------|-----|
-| **Blank page after `npm run dev`** | `.env` missing required variables (Spotify token) | Add a `.env` file or comment out the `<SpotifyCard />` import. |
-| **GitHub calendar shows “Failed to fetch”** | Rate‑limit exceeded or missing `GITHUB_TOKEN` | Add a personal access token to `.env` (`VITE_GITHUB_TOKEN`). |
-| **Tailwind styles not applied** | Vite cache corrupted | Delete `node_modules/.vite` and restart dev server. |
+| **Blank page after `npm run dev`** | Required environment variables (Spotify token) are unset | Export the needed `VITE_` variables in your shell or CI before starting the dev server. |
+| **GitHub calendar shows “Failed to fetch”** | Rate‑limit exceeded or missing `VITE_GITHUB_TOKEN` | Add a personal access token (`VITE_GITHUB_TOKEN`) to your environment. |
+| **Tailwind styles not applied** | Vite cache corrupted | Delete `node_modules/.vite` and restart the dev server. |
 | **Cursor effect lags** | `useMousePosition` causing excessive re‑renders | Ensure the hook uses `requestAnimationFrame` (already implemented). |
-| **Production build fails** | Missing environment variable at build time | Vite injects only variables prefixed with `VITE_`. Verify names. |
+| **Production build fails** | Missing environment variable at build time | Vite injects only variables prefixed with `VITE_`. Verify names and that they are defined during the build. |
 
 For further help, open an issue or contact **Arman Thakur** (see below).
 
