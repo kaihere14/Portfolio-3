@@ -1,7 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { useTime } from "../hooks/useTime";
-import { useMousePosition } from "../hooks/useMousePosition";
 import { useSpotify } from "../hooks/useSpotify";
 import { checkStatus } from "../hooks/useDiscord";
 
@@ -23,7 +22,6 @@ const Portfolio = () => {
   const { gitValue } = useGithubCommits();
   const { darkMode, setDarkMode, theme } = useTheme();
   const time = useTime();
-  const mousePosition = useMousePosition();
   const { spotify, spotifyLoaded } = useSpotify();
   const [hoveredProject, setHoveredProject] = useState(null);
   const [hoveredTech, setHoveredTech] = useState(null);
@@ -34,7 +32,7 @@ const Portfolio = () => {
       className={`min-h-screen ${theme.mainBg} ${theme.text} font-sans ${theme.selection} pb-32 overflow-x-hidden transition-colors duration-300`}
     >
       <Navbar theme={theme} darkMode={darkMode} setDarkMode={setDarkMode} />
-      <CursorEffect mousePosition={mousePosition} darkMode={darkMode} />
+      <CursorEffect darkMode={darkMode} />
       <BackgroundPattern theme={theme} />
 
       <main className="max-w-3xl mx-auto px-6 pt-24 relative z-10 space-y-16">

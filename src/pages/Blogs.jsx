@@ -1,14 +1,12 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../hooks/useTheme";
-import { useMousePosition } from "../hooks/useMousePosition";
 import Navbar from "../components/Navbar";
 import CursorEffect from "../components/CursorEffect";
 import BackgroundPattern from "../components/BackgroundPattern";
 
 const Blogs = () => {
   const { darkMode, setDarkMode, theme } = useTheme();
-  const mousePosition = useMousePosition();
   const [selectedTag, setSelectedTag] = useState(null);
 
   const posts = [
@@ -64,7 +62,7 @@ const Blogs = () => {
       className={`min-h-screen ${theme.mainBg} ${theme.text} font-sans ${theme.selection} pb-32 overflow-x-hidden transition-colors duration-300`}
     >
       <Navbar theme={theme} darkMode={darkMode} setDarkMode={setDarkMode} />
-      <CursorEffect mousePosition={mousePosition} darkMode={darkMode} />
+      <CursorEffect darkMode={darkMode} />
       <BackgroundPattern theme={theme} />
 
       <main className="max-w-3xl mx-auto px-6 pt-32 relative z-10">
@@ -88,15 +86,14 @@ const Blogs = () => {
             {/* All Tag */}
             <button
               onClick={() => setSelectedTag(null)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all cursor-pointer ${
-                selectedTag === null
-                  ? darkMode
-                    ? "bg-white text-black border-white"
-                    : "bg-neutral-900 text-white border-neutral-900"
-                  : darkMode
-                    ? "bg-neutral-900 border-neutral-800 text-neutral-300 hover:bg-neutral-800"
-                    : "bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50"
-              }`}
+              className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all cursor-pointer ${selectedTag === null
+                ? darkMode
+                  ? "bg-white text-black border-white"
+                  : "bg-neutral-900 text-white border-neutral-900"
+                : darkMode
+                  ? "bg-neutral-900 border-neutral-800 text-neutral-300 hover:bg-neutral-800"
+                  : "bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50"
+                }`}
             >
               All ({posts.length})
             </button>
@@ -105,15 +102,14 @@ const Blogs = () => {
               <button
                 key={tag.name}
                 onClick={() => setSelectedTag(tag.name)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all cursor-pointer ${
-                  selectedTag === tag.name
-                    ? darkMode
-                      ? "bg-white text-black border-white"
-                      : "bg-neutral-900 text-white border-neutral-900"
-                    : darkMode
-                      ? "bg-neutral-900 border-neutral-800 text-neutral-300 hover:bg-neutral-800"
-                      : "bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50"
-                }`}
+                className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all cursor-pointer ${selectedTag === tag.name
+                  ? darkMode
+                    ? "bg-white text-black border-white"
+                    : "bg-neutral-900 text-white border-neutral-900"
+                  : darkMode
+                    ? "bg-neutral-900 border-neutral-800 text-neutral-300 hover:bg-neutral-800"
+                    : "bg-white border-neutral-200 text-neutral-600 hover:bg-neutral-50"
+                  }`}
               >
                 {tag.name} ({tag.count})
               </button>
@@ -149,11 +145,10 @@ const Blogs = () => {
                 >
                   {/* Image Card */}
                   <div
-                    className={`aspect-video rounded-xl overflow-hidden border ${
-                      darkMode
-                        ? "border-neutral-800 bg-neutral-900"
-                        : "border-neutral-200 bg-neutral-100"
-                    }`}
+                    className={`aspect-video rounded-xl overflow-hidden border ${darkMode
+                      ? "border-neutral-800 bg-neutral-900"
+                      : "border-neutral-200 bg-neutral-100"
+                      }`}
                   >
                     <img
                       src={post.image}
@@ -169,11 +164,10 @@ const Blogs = () => {
                       {post.tags?.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${
-                            darkMode
-                              ? "bg-neutral-800 text-neutral-400"
-                              : "bg-neutral-200 text-neutral-600"
-                          }`}
+                          className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${darkMode
+                            ? "bg-neutral-800 text-neutral-400"
+                            : "bg-neutral-200 text-neutral-600"
+                            }`}
                         >
                           {tag}
                         </span>
@@ -181,16 +175,14 @@ const Blogs = () => {
                     </div>
 
                     <h3
-                      className={`font-bold text-lg leading-tight group-hover:underline decoration-2 underline-offset-4 ${
-                        darkMode ? "text-neutral-100" : "text-neutral-900"
-                      }`}
+                      className={`font-bold text-lg leading-tight group-hover:underline decoration-2 underline-offset-4 ${darkMode ? "text-neutral-100" : "text-neutral-900"
+                        }`}
                     >
                       {post.title}
                     </h3>
                     <p
-                      className={`text-sm line-clamp-2 ${
-                        darkMode ? "text-neutral-400" : "text-neutral-600"
-                      }`}
+                      className={`text-sm line-clamp-2 ${darkMode ? "text-neutral-400" : "text-neutral-600"
+                        }`}
                     >
                       {post.description}
                     </p>

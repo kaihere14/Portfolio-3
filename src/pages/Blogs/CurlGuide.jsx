@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useTheme } from "../../hooks/useTheme";
-import { useMousePosition } from "../../hooks/useMousePosition";
 import Navbar from "../../components/Navbar";
 import {
   Calendar,
@@ -13,7 +12,6 @@ import {
 
 const CurlGuide = () => {
   const { darkMode, setDarkMode, theme } = useTheme();
-  const mousePosition = useMousePosition();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -29,18 +27,16 @@ const CurlGuide = () => {
         {/* Meta Header */}
         <header className="mb-20">
           <div
-            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] mb-6 ${
-              darkMode
-                ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
-                : "bg-neutral-200 border border-neutral-300 text-neutral-600"
-            }`}
+            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] mb-6 ${darkMode
+              ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
+              : "bg-neutral-200 border border-neutral-300 text-neutral-600"
+              }`}
           >
             Developer Tools
           </div>
           <h1
-            className={`text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight ${
-              darkMode ? "text-white" : "text-neutral-900"
-            }`}
+            className={`text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight ${darkMode ? "text-white" : "text-neutral-900"
+              }`}
           >
             What is cURL and How to Use It
           </h1>
@@ -90,11 +86,10 @@ const CurlGuide = () => {
                 terminal.
               </p>
               <div
-                className={`p-5 rounded-xl border ${
-                  darkMode
-                    ? "bg-neutral-900/50 border-neutral-800 text-neutral-200"
-                    : "bg-neutral-100 border-neutral-200 text-neutral-800"
-                }`}
+                className={`p-5 rounded-xl border ${darkMode
+                  ? "bg-neutral-900/50 border-neutral-800 text-neutral-200"
+                  : "bg-neutral-100 border-neutral-200 text-neutral-800"
+                  }`}
               >
                 <strong>In this article we will have a deep dive into:</strong>
                 <ul className="mt-3 space-y-2 text-sm">
@@ -228,11 +223,10 @@ const CurlGuide = () => {
 
               {/* Code Block */}
               <div
-                className={`rounded-xl p-5 font-mono text-sm border ${
-                  darkMode
-                    ? "bg-neutral-900 border-neutral-800 text-green-400"
-                    : "bg-neutral-900 border-neutral-800 text-green-400"
-                }`}
+                className={`rounded-xl p-5 font-mono text-sm border ${darkMode
+                  ? "bg-neutral-900 border-neutral-800 text-green-400"
+                  : "bg-neutral-900 border-neutral-800 text-green-400"
+                  }`}
               >
                 $ curl https://backend.novadrive.space
               </div>
@@ -269,11 +263,10 @@ const CurlGuide = () => {
                 Sending data with a POST request:
               </h3>
               <div
-                className={`rounded-xl p-5 font-mono text-sm border overflow-x-auto ${
-                  darkMode
-                    ? "bg-neutral-900 border-neutral-800"
-                    : "bg-neutral-900 border-neutral-800"
-                }`}
+                className={`rounded-xl p-5 font-mono text-sm border overflow-x-auto ${darkMode
+                  ? "bg-neutral-900 border-neutral-800"
+                  : "bg-neutral-900 border-neutral-800"
+                  }`}
               >
                 <pre className="text-green-400">
                   {`#!/bin/bash
@@ -308,11 +301,10 @@ curl -X POST \\
                   ].map(([flag, desc], i) => (
                     <li
                       key={i}
-                      className={`flex gap-3 p-4 rounded-lg border ${
-                        darkMode
-                          ? "bg-neutral-900/30 border-neutral-800/50"
-                          : "bg-neutral-50 border-neutral-200"
-                      }`}
+                      className={`flex gap-3 p-4 rounded-lg border ${darkMode
+                        ? "bg-neutral-900/30 border-neutral-800/50"
+                        : "bg-neutral-50 border-neutral-200"
+                        }`}
                     >
                       <code
                         className={`shrink-0 ${darkMode ? "text-neutral-400" : "text-neutral-600"}`}
@@ -343,11 +335,10 @@ curl -X POST \\
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Request */}
               <div
-                className={`p-5 rounded-xl border ${
-                  darkMode
-                    ? "bg-neutral-900/50 border-neutral-800"
-                    : "bg-neutral-50 border-neutral-200"
-                }`}
+                className={`p-5 rounded-xl border ${darkMode
+                  ? "bg-neutral-900/50 border-neutral-800"
+                  : "bg-neutral-50 border-neutral-200"
+                  }`}
               >
                 <h3
                   className={`text-lg font-bold mb-4 ${darkMode ? "text-white" : "text-neutral-900"}`}
@@ -370,11 +361,10 @@ curl -X POST \\
 
               {/* Response */}
               <div
-                className={`p-5 rounded-xl border ${
-                  darkMode
-                    ? "bg-neutral-900/50 border-neutral-800"
-                    : "bg-neutral-50 border-neutral-200"
-                }`}
+                className={`p-5 rounded-xl border ${darkMode
+                  ? "bg-neutral-900/50 border-neutral-800"
+                  : "bg-neutral-50 border-neutral-200"
+                  }`}
               >
                 <h3
                   className={`text-lg font-bold mb-4 ${darkMode ? "text-white" : "text-neutral-900"}`}
@@ -419,11 +409,10 @@ curl -X POST \\
               </p>
 
               <div
-                className={`p-5 rounded-xl border ${
-                  darkMode
-                    ? "bg-neutral-900/50 border-neutral-800"
-                    : "bg-neutral-100 border-neutral-200"
-                }`}
+                className={`p-5 rounded-xl border ${darkMode
+                  ? "bg-neutral-900/50 border-neutral-800"
+                  : "bg-neutral-100 border-neutral-200"
+                  }`}
               >
                 <h4
                   className={`font-bold mb-3 ${darkMode ? "text-white" : "text-neutral-900"}`}
@@ -476,21 +465,19 @@ curl -X POST \\
               ].map((mistake, i) => (
                 <div
                   key={i}
-                  className={`p-5 rounded-xl border ${
-                    darkMode
-                      ? "bg-neutral-900/30 border-neutral-800"
-                      : "bg-neutral-50 border-neutral-200"
-                  }`}
+                  className={`p-5 rounded-xl border ${darkMode
+                    ? "bg-neutral-900/30 border-neutral-800"
+                    : "bg-neutral-50 border-neutral-200"
+                    }`}
                 >
                   <h4
                     className={`font-bold mb-2 flex items-center gap-3 ${darkMode ? "text-white" : "text-neutral-900"}`}
                   >
                     <span
-                      className={`flex items-center justify-center w-6 h-6 rounded-lg text-xs font-bold ${
-                        darkMode
-                          ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
-                          : "bg-neutral-200 border border-neutral-300 text-neutral-600"
-                      }`}
+                      className={`flex items-center justify-center w-6 h-6 rounded-lg text-xs font-bold ${darkMode
+                        ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
+                        : "bg-neutral-200 border border-neutral-300 text-neutral-600"
+                        }`}
                     >
                       {i + 1}
                     </span>
@@ -509,9 +496,8 @@ curl -X POST \\
 
         {/* Footer */}
         <footer
-          className={`mt-24 pt-12 border-t flex flex-col sm:flex-row justify-between items-center gap-8 ${
-            darkMode ? "border-neutral-800" : "border-neutral-200"
-          }`}
+          className={`mt-24 pt-12 border-t flex flex-col sm:flex-row justify-between items-center gap-8 ${darkMode ? "border-neutral-800" : "border-neutral-200"
+            }`}
         >
           <div className="space-y-1 text-center sm:text-left">
             <p

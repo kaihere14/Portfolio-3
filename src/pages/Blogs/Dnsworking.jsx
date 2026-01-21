@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useTheme } from "../../hooks/useTheme";
-import { useMousePosition } from "../../hooks/useMousePosition";
 import Navbar from "../../components/Navbar";
 import {
   Calendar,
@@ -14,7 +13,6 @@ import {
 
 const Dnsworking = () => {
   const { darkMode, setDarkMode, theme } = useTheme();
-  const mousePosition = useMousePosition();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,18 +28,16 @@ const Dnsworking = () => {
         {/* Meta Header */}
         <header className="mb-20">
           <div
-            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] mb-6 ${
-              darkMode
-                ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
-                : "bg-neutral-200 border border-neutral-300 text-neutral-600"
-            }`}
+            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] mb-6 ${darkMode
+              ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
+              : "bg-neutral-200 border border-neutral-300 text-neutral-600"
+              }`}
           >
             Network Architecture
           </div>
           <h1
-            className={`text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight ${
-              darkMode ? "text-white" : "text-neutral-900"
-            }`}
+            className={`text-4xl md:text-5xl font-bold tracking-tight mb-8 leading-tight ${darkMode ? "text-white" : "text-neutral-900"
+              }`}
           >
             How DNS Resolution Works
           </h1>
@@ -93,11 +89,10 @@ const Dnsworking = () => {
                 requests to different types of servers to finally get the IP.
               </p>
               <div
-                className={`p-5 rounded-xl border ${
-                  darkMode
-                    ? "bg-neutral-900/50 border-neutral-800 text-neutral-200"
-                    : "bg-neutral-100 border-neutral-200 text-neutral-800"
-                }`}
+                className={`p-5 rounded-xl border ${darkMode
+                  ? "bg-neutral-900/50 border-neutral-800 text-neutral-200"
+                  : "bg-neutral-100 border-neutral-200 text-neutral-800"
+                  }`}
               >
                 <strong>Example:</strong> Recursive server, Root server,
                 Authoritative DNS server
@@ -140,11 +135,10 @@ const Dnsworking = () => {
               ].map((item, i) => (
                 <li
                   key={i}
-                  className={`flex items-start gap-3 p-4 rounded-lg border text-sm ${
-                    darkMode
-                      ? "border-neutral-800 bg-neutral-900/30"
-                      : "border-neutral-200 bg-neutral-50"
-                  }`}
+                  className={`flex items-start gap-3 p-4 rounded-lg border text-sm ${darkMode
+                    ? "border-neutral-800 bg-neutral-900/30"
+                    : "border-neutral-200 bg-neutral-50"
+                    }`}
                 >
                   <div
                     className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${darkMode ? "bg-neutral-500" : "bg-neutral-400"}`}
@@ -228,11 +222,10 @@ const Dnsworking = () => {
                   domain.
                 </p>
                 <div
-                  className={`rounded-lg p-4 font-mono text-sm border ${
-                    darkMode
-                      ? "bg-black/60 border-neutral-800 text-green-400"
-                      : "bg-neutral-900 border-neutral-800 text-green-400"
-                  }`}
+                  className={`rounded-lg p-4 font-mono text-sm border ${darkMode
+                    ? "bg-black/60 border-neutral-800 text-green-400"
+                    : "bg-neutral-900 border-neutral-800 text-green-400"
+                    }`}
                 >
                   $ dig example.com NS
                 </div>
@@ -285,11 +278,10 @@ const Dnsworking = () => {
               ].map((stat, i) => (
                 <div
                   key={i}
-                  className={`p-4 rounded-xl border text-center ${
-                    darkMode
-                      ? "border-neutral-800 bg-neutral-900/20"
-                      : "border-neutral-200 bg-neutral-50"
-                  }`}
+                  className={`p-4 rounded-xl border text-center ${darkMode
+                    ? "border-neutral-800 bg-neutral-900/20"
+                    : "border-neutral-200 bg-neutral-50"
+                    }`}
                 >
                   <div
                     className={`text-xl font-bold mb-1 ${darkMode ? "text-white" : "text-neutral-900"}`}
@@ -318,11 +310,10 @@ const Dnsworking = () => {
               information about domain names.
             </p>
             <div
-              className={`border rounded-xl p-5 font-mono text-sm space-y-3 ${
-                darkMode
-                  ? "bg-neutral-900 border-neutral-800"
-                  : "bg-neutral-900 border-neutral-800"
-              }`}
+              className={`border rounded-xl p-5 font-mono text-sm space-y-3 ${darkMode
+                ? "bg-neutral-900 border-neutral-800"
+                : "bg-neutral-900 border-neutral-800"
+                }`}
             >
               <div className="text-green-500">$ dig example.com NS</div>
               <div className="text-neutral-500 leading-loose">
@@ -361,11 +352,10 @@ const Dnsworking = () => {
                 ].map((step, i) => (
                   <li
                     key={i}
-                    className={`flex gap-3 p-4 rounded-lg border ${
-                      darkMode
-                        ? "bg-neutral-900/30 border-neutral-800/50"
-                        : "bg-neutral-50 border-neutral-200"
-                    }`}
+                    className={`flex gap-3 p-4 rounded-lg border ${darkMode
+                      ? "bg-neutral-900/30 border-neutral-800/50"
+                      : "bg-neutral-50 border-neutral-200"
+                      }`}
                   >
                     <span
                       className={`font-bold ${darkMode ? "text-neutral-500" : "text-neutral-400"}`}
@@ -489,11 +479,10 @@ const Dnsworking = () => {
                     className={`text-xl font-bold mb-4 flex items-center gap-3 ${darkMode ? "text-white" : "text-neutral-900"}`}
                   >
                     <span
-                      className={`flex items-center justify-center w-7 h-7 rounded-lg text-sm font-bold ${
-                        darkMode
-                          ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
-                          : "bg-neutral-200 border border-neutral-300 text-neutral-600"
-                      }`}
+                      className={`flex items-center justify-center w-7 h-7 rounded-lg text-sm font-bold ${darkMode
+                        ? "bg-neutral-800 border border-neutral-700 text-neutral-400"
+                        : "bg-neutral-200 border border-neutral-300 text-neutral-600"
+                        }`}
                     >
                       {i + 1}
                     </span>
@@ -520,9 +509,8 @@ const Dnsworking = () => {
 
         {/* Footer */}
         <footer
-          className={`mt-24 pt-12 border-t flex flex-col sm:flex-row justify-between items-center gap-8 ${
-            darkMode ? "border-neutral-800" : "border-neutral-200"
-          }`}
+          className={`mt-24 pt-12 border-t flex flex-col sm:flex-row justify-between items-center gap-8 ${darkMode ? "border-neutral-800" : "border-neutral-200"
+            }`}
         >
           <div className="space-y-1 text-center sm:text-left">
             <p
