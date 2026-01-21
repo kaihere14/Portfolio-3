@@ -3,13 +3,29 @@ import { Cpu } from "lucide-react";
 import { techStack } from "../data/portfolioData";
 
 const TechStackSection = ({ theme, darkMode, hoveredTech, setHoveredTech }) => {
+  // Normalize theme tokens with light/dark fallbacks (matching ProjectsSection)
+  const palette = {
+    textPrimary:
+      theme.textWhite ||
+      theme.text ||
+      (darkMode ? "text-white" : "text-neutral-900"),
+    textMuted:
+      theme.textMuted || (darkMode ? "text-neutral-400" : "text-neutral-600"),
+    textSubtle:
+      theme.textSubtle || (darkMode ? "text-neutral-500" : "text-neutral-500"),
+  };
+
   return (
     <section className="space-y-6">
-      <h2
-        className={`text-xl font-bold ${theme.textWhite} flex items-center gap-2`}
-      >
-        <Cpu size={20} className="text-blue-400" /> Tech Stack & Tools
-      </h2>
+      {/* Header */}
+      <div>
+        <p className={`text-sm ${palette.textSubtle} mb-1`}>Expertise</p>
+        <h2
+          className={`text-3xl font-bold ${palette.textPrimary} flex items-center gap-2`}
+        >
+          Tech Stack & Tools
+        </h2>
+      </div>
       <div className="flex flex-wrap gap-3">
         {techStack.map((tech) => (
           <div
@@ -33,7 +49,12 @@ const TechStackSection = ({ theme, darkMode, hoveredTech, setHoveredTech }) => {
               }`}
             >
               <img
-                src={tech.icon}
+                src={
+                  !darkMode &&
+                  (tech.name === "Socket.io" || tech.name === "GSAP")
+                    ? tech.icon.replace("white", "black")
+                    : tech.icon
+                }
                 alt={tech.name}
                 className="w-6 h-6 rounded-sm"
               />
@@ -69,4 +90,3 @@ const TechStackSection = ({ theme, darkMode, hoveredTech, setHoveredTech }) => {
 };
 
 export default TechStackSection;
-

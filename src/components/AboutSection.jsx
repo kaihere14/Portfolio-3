@@ -9,7 +9,7 @@ const AboutSection = ({ theme, darkMode }) => {
       <h2 className={`text-3xl ${theme.textWhite} font-bold  mb-2`}>Me</h2>
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8  rounded-2xl p-6">
         <div className="shrink-0">
-          <div className="w-55 h-55 rounded-2xl overflow-hidden border-4 border-yellow-400 bg-yellow-300 flex items-center justify-center">
+          <div className={`w-55 h-55 rounded-2xl overflow-hidden  ${darkMode ? "bg-amber-300" : "bg-sky-200"} flex items-center justify-center`}>
             <img
               src="https://res.cloudinary.com/dw87upoot/image/upload/v1763497871/Gemini_Generated_Image_2_Background_Removed_tkozqp.png"
               alt="Arman Thakur Avatar"
